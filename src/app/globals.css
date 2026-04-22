@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-torq-bg: #0A0A0A;
+  --color-torq-accent: #EF4826;
+  --color-torq-muted: #A3A3A3;
+  --color-torq-border: #262626;
+
+  --font-display: var(--font-anton), "Anton", sans-serif;
+  --font-sans: var(--font-bricolage), "Bricolage Grotesque", sans-serif;
+
+  --spacing-torq-safe: clamp(1.25rem, 5vw, 2.5rem); /* 20px - 40px */
+  --spacing-torq-header: clamp(1.75rem, 4vh, 2.5rem); /* 28px - 40px */
+}
+
+:root {
+  --background: var(--color-torq-bg);
+  --foreground: #ffffff;
+  
+  /* Responsive Typography Scale */
+  --text-hero: clamp(3.5rem, 12vw, 6.75rem);
+  --text-h2: clamp(2rem, 6vw, 3.5rem);
+  --text-h3: clamp(1.5rem, 4vw, 2.25rem);
+  --text-body: clamp(0.9375rem, 1.5vw, 1rem);
+  --text-label: clamp(0.6875rem, 1vw, 0.75rem);
+}
+
+body {
+  background-color: var(--color-torq-bg);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Typography Utilities */
+@utility text-hero-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+@utility text-label-xs {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+/* Scrollbar Hide */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Responsive Containers */
+.container-safe {
+  width: 100%;
+  padding-left: var(--spacing-torq-safe);
+  padding-right: var(--spacing-torq-safe);
+}
+
+/* Tap Target Utilities */
+.tap-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
