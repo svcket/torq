@@ -5,3 +5,9 @@ node_modules
 *.local
 dist
 build
+
+# Workflow Metadata
+systems/
+execution/
+*.md
+!README.md
