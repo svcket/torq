@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { getCloudinaryUrl } from "@/lib/cloudinary";
 
 export default function SceneryHero() {
   return (

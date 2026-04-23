@@ -1,19 +1,20 @@
 "use client";
 
 import React from "react";
+import { getCloudinaryUrl } from "@/lib/cloudinary";
 
 const PRODUCTS = [
   {
     id: 1,
     name: "TORQSIDE JACKET",
     price: "$67",
-    img: "/torqassets/merch/merch - TOR’QSIDE JACKET.png",
+    img: getCloudinaryUrl("merch/merch - TOR’QSIDE JACKET.png"),
   },
   {
     id: 2,
     name: "TORQ - MONACO CAP",
     price: "$28",
-    img: "/torqassets/merch/merch - TOR’Q - MONACO CAP.png",
+    img: getCloudinaryUrl("merch/merch - TOR’Q - MONACO CAP.png"),
   },
   {
     id: 3, // Empty slot 1 (Row 1, Col 3)
@@ -23,19 +24,19 @@ const PRODUCTS = [
     id: 4,
     name: "TORQSIDE PANTS",
     price: "$39",
-    img: "/torqassets/merch/merch - TOR’QSIDE PANTS.png",
+    img: getCloudinaryUrl("merch/merch - TOR’QSIDE PANTS.png"),
   },
   {
     id: 5,
     name: "NIGHT RUN BANDANA",
     price: "$22",
-    img: "/torqassets/merch/merch - NIGHT RUN BANDANA.png",
+    img: getCloudinaryUrl("merch/merch - NIGHT RUN BANDANA.png"),
   },
   {
     id: 6,
     name: "TORQ MOTION SOCKS",
     price: "$15",
-    img: "/torqassets/merch/merch - TOR’Q MOTION SOCKS.png",
+    img: getCloudinaryUrl("merch/merch - TOR’Q MOTION SOCKS.png"),
   },
   {
     id: 7, // Empty slot 2 (Row 2, Col 2)
@@ -45,19 +46,19 @@ const PRODUCTS = [
     id: 8,
     name: "NIGHT DRIFT LONG SLEEVE",
     price: "$30",
-    img: "/torqassets/merch/merch - NIGHT DRIFT LONG SLEEVE.png",
+    img: getCloudinaryUrl("merch/merch - NIGHT DRIFT LONG SLEEVE.png"),
   },
   {
     id: 9,
     name: "ASTA-LAVISTA BALACLAVA",
     price: "$85",
-    img: "/torqassets/merch/merch - ASTA-LAVISTA BALACLAVA.png",
+    img: getCloudinaryUrl("merch/merch - ASTA-LAVISTA BALACLAVA.png"),
   },
   {
     id: 10,
     name: "TORQ SUNGLASSES",
     price: "$19",
-    img: "/torqassets/merch/merch - TOR’Q SUNGLASSES.png",
+    img: getCloudinaryUrl("merch/merch - TOR’Q SUNGLASSES.png"),
   },
 ];
 
