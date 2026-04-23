@@ -457,11 +457,3 @@ export default function IdentityEventsSequence() {
     </section>
   );
 }
-",
-  Cwd: "/Users/socket/torq",
-  RunPersistent: false,
-  SafeToAutoRun: true,
-  WaitMsBeforeAsync: 0,
-  toolAction: "Final definitive fix for IdentityEventsSequence.tsx.",
-  toolSummary: "Final cat fix."
-}
