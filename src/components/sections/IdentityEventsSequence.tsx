@@ -269,13 +269,13 @@ function DesktopView() {
     else setActiveIndex(4);
 
     if (latest < 0.15) {
-      sectionRef.current?.setAttribute("data-chrome-theme", "dark"); // Dark theme = Black icons in GlobalChrome
+      sectionRef.current?.setAttribute("data-chrome-theme", "dark");
       sectionRef.current?.setAttribute("data-chrome-logo", "visible");
     } else if (latest < 0.40) {
       sectionRef.current?.setAttribute("data-chrome-theme", "dark");
       sectionRef.current?.setAttribute("data-chrome-logo", "hidden");
     } else {
-      sectionRef.current?.setAttribute("data-chrome-theme", "light"); // Light theme = White icons in GlobalChrome
+      sectionRef.current?.setAttribute("data-chrome-theme", "light");
       sectionRef.current?.setAttribute("data-chrome-cart-theme", "dark");
       sectionRef.current?.setAttribute("data-chrome-logo", "visible");
     }
@@ -435,7 +435,7 @@ function DesktopView() {
 function MobileView() {
   return (
     <section 
-      data-chrome-theme="dark" // Dark theme in GlobalChrome = Black icons
+      data-chrome-theme="dark"
       aria-label="TORQ Identity & Upcoming Events Sequence"
       style={{ backgroundColor: "#FFE7E3", position: "relative" }}
     >
@@ -443,19 +443,19 @@ function MobileView() {
         height: "100vh", 
         display: "flex", 
         flexDirection: "column", 
-        padding: "120px 0 0 0", // Generous space below nav
+        padding: "120px 0 0 0",
         position: "relative",
         overflow: "hidden"
       }}>
         <IdentityContent isMobile={true} />
       </div>
 
-      <div style={{ backgroundColor: "#000", padding: "64px 0" }}>
+      <div style={{ backgroundColor: "#FFFFFF", padding: "64px 0" }}>
         <div style={{ padding: "0 24px", marginBottom: "40px" }}>
           <h2 style={{ 
             fontFamily: "var(--font-anton), Anton, sans-serif", 
             fontSize: "42px", 
-            color: "#FFFFFF", 
+            color: "#111", 
             textTransform: "uppercase",
             letterSpacing: "0.03em",
             lineHeight: 1
@@ -463,15 +463,15 @@ function MobileView() {
         </div>
         
         {EVENTS.map((event) => (
-          <div key={event.id} style={{ marginBottom: "64px", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "48px" }}>
-            <div style={{ width: "100%", height: "240px", marginBottom: "24px", overflow: "hidden" }}>
+          <div key={event.id} style={{ marginBottom: "64px", borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "48px" }}>
+            <div style={{ width: "100%", height: "280px", marginBottom: "24px", overflow: "hidden" }}>
               <img src={event.mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
             </div>
             <div style={{ padding: "0 24px" }}>
               <h3 style={{ 
                 fontFamily: "var(--font-anton), Anton, sans-serif", 
                 fontSize: "28px", 
-                color: "#FFFFFF", 
+                color: "#111", 
                 textTransform: "uppercase",
                 marginBottom: "16px",
                 lineHeight: 1.1
@@ -480,7 +480,7 @@ function MobileView() {
               <p style={{ 
                 fontFamily: "var(--font-bricolage), sans-serif", 
                 fontSize: "15px", 
-                color: "rgba(255,255,255,0.6)", 
+                color: "#555", 
                 lineHeight: 1.6,
                 marginBottom: "24px"
               }}>{event.description}</p>
@@ -488,24 +488,38 @@ function MobileView() {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "32px" }}>
                 <div>
                   <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "12px", color: "#9C8981", textTransform: "uppercase", marginBottom: "4px" }}>Date</div>
-                  <div style={{ fontFamily: "var(--font-anton)", fontSize: "14px", color: "#FFFFFF" }}>{event.date}</div>
+                  <div style={{ fontFamily: "var(--font-anton)", fontSize: "14px", color: "#111" }}>{event.date}</div>
                 </div>
                 <div>
                   <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "12px", color: "#9C8981", textTransform: "uppercase", marginBottom: "4px" }}>Venue</div>
-                  <div style={{ fontFamily: "var(--font-anton)", fontSize: "14px", color: "#FFFFFF", lineHeight: 1.2 }}>{event.venue}</div>
+                  <div style={{ fontFamily: "var(--font-anton)", fontSize: "14px", color: "#111", lineHeight: 1.2 }}>{event.venue}</div>
                 </div>
               </div>
 
-              <button style={{ 
-                width: "100%", 
-                height: "48px", 
-                backgroundColor: "#EF4826", 
-                color: "#FFFFFF", 
-                border: "none",
-                fontFamily: "var(--font-anton)",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em"
-              }}>ATTEND EVENT</button>
+              <div style={{ display: "flex", gap: "12px" }}>
+                <button style={{ 
+                  flex: 1,
+                  height: "48px", 
+                  backgroundColor: "transparent", 
+                  color: "#111", 
+                  border: "2px solid #111",
+                  fontFamily: "var(--font-anton)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  fontSize: "14px"
+                }}>MORE DETAILS</button>
+                <button style={{ 
+                  flex: 1,
+                  height: "48px", 
+                  backgroundColor: "#EF4826", 
+                  color: "#FFFFFF", 
+                  border: "none",
+                  fontFamily: "var(--font-anton)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  fontSize: "14px"
+                }}>ATTEND EVENT</button>
+              </div>
             </div>
           </div>
         ))}

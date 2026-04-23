@@ -102,7 +102,7 @@ function MobileIntroFrame() {
         <div style={{
           alignSelf: "flex-end",
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "42px",
+          fontSize: "32px", // Reduced from 42px to prevent awkward breaking
           lineHeight: "1",
           color: "white",
           textTransform: "uppercase",
@@ -114,7 +114,7 @@ function MobileIntroFrame() {
         <div style={{
           alignSelf: "flex-start",
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "42px",
+          fontSize: "32px", // Reduced from 42px to prevent awkward breaking
           lineHeight: "1",
           color: "white",
           textTransform: "uppercase",
@@ -129,7 +129,7 @@ function MobileIntroFrame() {
 }
 
 function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
-  const isTop = index % 2 === 0; // Staggered: 0 (Jay) = Top, 1 (Auto) = Bottom, 2 (Awal) = Top...
+  const isTop = index % 2 === 0;
   
   return (
     <div style={{
@@ -338,14 +338,13 @@ function MobileView() {
             x, 
             height: "100%", 
             alignItems: "stretch",
-            gap: "24px" // Intentional spacing between cards
+            gap: "24px"
           }}
         >
           <MobileIntroFrame />
           {FACES.map((face, index) => (
             <MobileCard key={face.id} face={face} index={index} />
           ))}
-          {/* Buffer space at the end */}
           <div style={{ width: "24px", flexShrink: 0 }} />
         </motion.div>
       </div>
