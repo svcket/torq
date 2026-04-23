@@ -3,22 +3,23 @@
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValueEvent } from "framer-motion";
 import Footer from "./Footer";
+import { getCloudinaryUrl } from "@/lib/cloudinary";
 
 // ── Data ───────────────────────────────────────────────────────────────────
 
 const BRANDS_GRID = [
   // Row 1
-  { id: "asta", logo: "/torqassets/brands/brands - asta.png", name: "ASTA" },
+  { id: "asta", logo: getCloudinaryUrl("brands/brands - asta.png"), name: "ASTA" },
   { id: "e1", empty: true },
-  { id: "autocraft", logo: "/torqassets/brands/brands - autocraft.png", name: "AUTOCRAFT" },
-  { id: "revstate", logo: "/torqassets/brands/brands - revstate.png", name: "REVSTATE" },
-  { id: "eko-garage", logo: "/torqassets/brands/brands - eko garage.png", name: "Eko.Garage" },
+  { id: "autocraft", logo: getCloudinaryUrl("brands/brands - autocraft.png"), name: "AUTOCRAFT" },
+  { id: "revstate", logo: getCloudinaryUrl("brands/brands - revstate.png"), name: "REVSTATE" },
+  { id: "eko-garage", logo: getCloudinaryUrl("brands/brands - eko garage.png"), name: "Eko.Garage" },
   // Row 2
-  { id: "2tone", logo: "/torqassets/brands/brands - 2tone.png", name: "2-TONE.NG" },
-  { id: "classic", logo: "/torqassets/brands/brands - the classic car vault.png", name: "The Classic Car Vault" },
+  { id: "2tone", logo: getCloudinaryUrl("brands/brands - 2tone.png"), name: "2-TONE.NG" },
+  { id: "classic", logo: getCloudinaryUrl("brands/brands - the classic car vault.png"), name: "The Classic Car Vault" },
   { id: "e2", empty: true },
-  { id: "fearless", logo: "/torqassets/brands/brands - fearless.png", name: "FEARLESS" },
-  { id: "bigi", logo: "/torqassets/brands/brands - bigi.png", name: "Bigi" },
+  { id: "fearless", logo: getCloudinaryUrl("brands/brands - fearless.png"), name: "FEARLESS" },
+  { id: "bigi", logo: getCloudinaryUrl("brands/brands - bigi.png"), name: "Bigi" },
 ];
 
 const FAQ_ITEMS = [
@@ -325,7 +326,7 @@ export default function BrandsFaqSequence() {
             }}
           >
             <img 
-              src="/torqassets/faq-newsletter/faq - entry image - main faq image.jpg" 
+              src={getCloudinaryUrl("faq-newsletter/faq - entry image - main faq image.jpg")} 
               alt="" 
               style={{ width: "100%", height: "100%", objectFit: "cover" }} 
             />
@@ -402,7 +403,7 @@ export default function BrandsFaqSequence() {
         >
           {/* Background Image (Isolated to this layer) */}
           <img 
-            src="/torqassets/faq-newsletter/faq - exit image - newsletter sin up image.jpg" 
+            src={getCloudinaryUrl("faq-newsletter/faq - exit image - newsletter sin up image.jpg")} 
             alt="" 
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} 
           />

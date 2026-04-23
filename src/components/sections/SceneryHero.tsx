@@ -24,7 +24,7 @@ export default function SceneryHero() {
         zIndex: 1
       }}>
         <img 
-          src="/torqassets/gallery-memories/stories from the scene.jpg" 
+          src={getCloudinaryUrl("gallery-memories/stories from the scene.jpg")} 
           alt="Atmospheric movement silhouette" 
           style={{ 
             width: "100%", 
