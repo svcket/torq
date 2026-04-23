@@ -143,37 +143,37 @@ export default function IdentityEventsSequence() {
 
   const doorOffset = useTransform(scrollYProgress, (p) => {
     const t = clamp(p / splitEnd, 0, 1);
-    return \`\${easeInOut(t) * 50}vw\`;
+    return `${easeInOut(t) * 50}vw`;
   });
 
   const mediaWidth = useTransform(scrollYProgress, (p) => {
     const t = norm(p, collapseStart, collapseEnd);
-    return \`\${100 + (72 - 100) * t}vw\`;
+    return `${100 + (72 - 100) * t}vw`;
   });
 
   const rightPanelX = useTransform(scrollYProgress, (p) => {
     const t = norm(p, collapseStart, collapseEnd);
-    return \`\${(1 - t) * 100}%\`;
+    return `${(1 - t) * 100}%`;
   });
 
   const labelTop = useTransform(scrollYProgress, (p) => {
     const t = norm(p, collapseStart, collapseEnd);
-    return \`calc(85vh + (89px - 85vh) * \${t})\`;
+    return `calc(85vh + (89px - 85vh) * ${t})`;
   });
 
   const labelLeft = useTransform(scrollYProgress, (p) => {
     const t = norm(p, collapseStart, collapseEnd);
-    return \`calc(50% + ((72vw + 40px) - 50%) * \${t})\`;
+    return `calc(50% + ((72vw + 40px) - 50%) * ${t})`;
   });
 
   const labelTransX = useTransform(scrollYProgress, (p) => {
     const t = norm(p, collapseStart, collapseEnd);
-    return \`\${(1 - t) * -50}%\`;
+    return `${(1 - t) * -50}%`;
   });
 
   const labelFontSize = useTransform(scrollYProgress, (p) => {
     const t = norm(p, collapseStart, collapseEnd);
-    return \`\${Math.round(82 + (16 - 82) * t)}px\`;
+    return `${Math.round(82 + (16 - 82) * t)}px`;
   });
 
   const labelColor = useTransform(scrollYProgress, (p) => {
@@ -181,12 +181,12 @@ export default function IdentityEventsSequence() {
     const r = Math.round(255 + (156 - 255) * t);
     const g = Math.round(255 + (137 - 255) * t);
     const b = Math.round(255 + (129 - 255) * t);
-    return \`rgb(\${r},\${g},\${b})\`;
+    return `rgb(${r},${g},${b})`;
   });
 
   const labelLetterSpacing = useTransform(scrollYProgress, (p) => {
     const t = norm(p, collapseStart, collapseEnd);
-    return \`\${0.03 + (0.02 - 0.03) * t}em\`;
+    return `${0.03 + (0.02 - 0.03) * t}em`;
   });
 
   const indicatorOpacity = useTransform(scrollYProgress, [collapseEnd, collapseEnd + 0.05], [0, 1]);
@@ -258,7 +258,7 @@ export default function IdentityEventsSequence() {
         pointerEvents: "none",
         display: "flex",
         alignItems: "flex-end"
-      }}>\
+      }}>
         <img 
           src="/torqassets/vehicles/vehicles for split section.png" 
           alt="Vehicles overlay" 
@@ -375,7 +375,7 @@ export default function IdentityEventsSequence() {
             position: "absolute",
             top: 0, left: 0, width: "50vw", height: "100%",
             overflow: "hidden", zIndex: 50,
-            x: useTransform(doorOffset, v => \`-\${v}\`),
+            x: useTransform(doorOffset, v => `-${v}`),
           }}
         >
           <div style={{ position: "absolute", top: 0, left: 0, width: "100vw", height: "100%" }}>
@@ -429,35 +429,4 @@ export default function IdentityEventsSequence() {
           </motion.div>
           <AnimatePresence mode="wait">
             <motion.div key={EVENTS[activeIndex].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-              <h2 style={{ fontFamily: "var(--font-anton)", fontSize: "32px", color: "#111", textTransform: "uppercase", lineHeight: 1.05, letterSpacing: "0.01em", margin: "0 0 20px 0" }}>{EVENTS[activeIndex].title}</h2>
-              <p style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#555", lineHeight: 1.6, margin: "0 0 32px 0" }}>{EVENTS[activeIndex].description}</p>
-              <Divider mb={24} />
-              <div style={{ marginBottom: 24 }}>
-                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Date and Time</div>
-                <div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em" }}>{EVENTS[activeIndex].date}</div>
-              </div>
-              <div style={{ marginBottom: 24 }}>
-                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Venue</div>
-                <div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1.35 }}>{EVENTS[activeIndex].venue}</div>
-              </div>
-              <Divider mb={24} />
-              <div style={{ marginBottom: 24 }}>
-                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Highlights</div>
-                {EVENTS[activeIndex].highlights.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}
-              </div>
-              <Divider mb={24} />
-              <div style={{ marginBottom: "auto", paddingBottom: 20 }}>
-                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Expected Line-ups</div>
-                {EVENTS[activeIndex].lineups.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}
-              </div>
-              <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>
-                <button style={{ flex: 1, height: 48, border: "2px solid #111", backgroundColor: "transparent", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#111", textTransform: "uppercase", letterSpacing: "0.1em", cursor: "pointer", transition: "background 0.2s, color 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#111"; e.currentTarget.style.color = "#fff"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#111"; }}>MORE DETAILS</button>
-                <button style={{ flex: 1, height: 52, border: "none", backgroundColor: "#EF4826", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em", cursor: "pointer", transition: "background 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#d03a1a")} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#EF4826")}>ATTEND EVENT</button>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+              <h2 style={{ fontFamily: "var(--font-anton)", fontSize: "32px", color: "#111", textTransform: "uppercase", lineHeight: 1.05, letterSpacing: "0.01em", margin: "0 0 20px 0" }}>{EVENTS[activeIndex].title}</h2>\n              <p style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#555", lineHeight: 1.6, margin: "0 0 32px 0" }}>{EVENTS[activeIndex].description}</p>\n              <Divider mb={24} />\n              <div style={{ marginBottom: 24 }}>\n                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Date and Time</div>\n                <div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em" }}>{EVENTS[activeIndex].date}</div>\n              </div>\n              <div style={{ marginBottom: 24 }}>\n                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Venue</div>\n                <div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1.35 }}>{EVENTS[activeIndex].venue}</div>\n              </div>\n              <Divider mb={24} />\n              <div style={{ marginBottom: 24 }}>\n                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Highlights</div>\n                {EVENTS[activeIndex].highlights.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}\n              </div>\n              <Divider mb={24} />\n              <div style={{ marginBottom: "auto", paddingBottom: 20 }}>\n                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Expected Line-ups</div>\n                {EVENTS[activeIndex].lineups.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}\n              </div>\n              <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>\n                <button style={{ flex: 1, height: 48, border: "2px solid #111", backgroundColor: "transparent", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#111", textTransform: "uppercase", letterSpacing: "0.1em", cursor: "pointer", transition: "background 0.2s, color 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#111"; e.currentTarget.style.color = "#fff"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#111"; }}>MORE DETAILS</button>\n                <button style={{ flex: 1, height: 52, border: "none", backgroundColor: "#EF4826", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em", cursor: "pointer", transition: "background 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#d03a1a")} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#EF4826")}>ATTEND EVENT</button>\n              </div>\n            </motion.div>\n          </AnimatePresence>\n        </motion.div>\n      </div>\n    </section>\n  );\n}\n
