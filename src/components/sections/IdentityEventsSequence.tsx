@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
 // ── Event data (5 states) ────────────────────────────────────────────────────
 const EVENTS = [
@@ -98,6 +99,14 @@ function Divider({ mb = 28 }: { mb?: number }) {
 export default function IdentityEventsSequence() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -193,8 +202,8 @@ export default function IdentityEventsSequence() {
   // Indicators only visible during event sequence (0.40+)
   const indicatorOpacity = useTransform(scrollYProgress, [collapseEnd, collapseEnd + 0.05], [0, 1]);
 
-  // ── Duplicate Content Function for sliding doors ─────────────────────────
-  const renderIdentityContent = () => (
+  // ── Desktop Identity Content ─────────────────────────────────────────
+  const renderIdentityDesktop = () => (
     <>
       <div style={{ position: "absolute", inset: 0, backgroundColor: "#FFE7E3" }} />
       {/* Top Left Text */}
@@ -214,10 +223,85 @@ export default function IdentityEventsSequence() {
       {/* Bottom Vehicles Graphic */}
       <div style={{ position: "absolute", bottom: "-2vh", left: 0, width: "100%", height: "35vh", overflow: "hidden", zIndex: 5, pointerEvents: "none" }}>
         <img src="/torqassets/vehicles/vehicles for split section.png" alt="Vehicles overlay" style={{ position: "absolute", bottom: 0, left: 0, width: "100vw", height: "auto", objectFit: "cover", objectPosition: "bottom" }} />
-        {/* Soft blend for illustration cut */}
         <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "20vh", background: "linear-gradient(to bottom, #FFE7E3 0%, transparent 100%)" }} />
       </div>
     </>
+  );
+
+  // ── Mobile Identity Content ──────────────────────────────────────────
+  const renderIdentityMobile = () => (
+    <div style={{
+      position: "absolute",
+      inset: 0,
+      backgroundColor: "#FFE7E3",
+      display: "flex",
+      flexDirection: "column",
+      padding: "24px 16px",
+      overflow: "hidden"
+    }}>
+      {/* Navigation Spacer (simulated) */}
+      <div style={{ height: "64px" }} />
+
+      {/* Text Block 1 */}
+      <div style={{
+        fontFamily: "var(--font-anton), Anton, sans-serif",
+        fontSize: "14px",
+        lineHeight: 1.2,
+        color: "#111",
+        textTransform: "uppercase",
+        marginBottom: "14px",
+        letterSpacing: "0.01em"
+      }}>
+        BUILT FOR THE CULTURE IN MOTION, TOR'Q BRINGS TOGETHER EVENTS, COMMUNITY
+        VOICES, AND STORIES FROM THE PEOPLE SHAPING THE SCENE IN REAL TIME.
+      </div>
+
+      {/* Text Block 2 */}
+      <div style={{
+        fontFamily: "var(--font-anton), Anton, sans-serif",
+        fontSize: "14px",
+        lineHeight: 1.2,
+        color: "#111",
+        textTransform: "uppercase",
+        letterSpacing: "0.01em"
+      }}>
+        FROM ASPHALT TO WATER, FROM ENGINES TO ATMOSPHERE, WE FOLLOW THE ENERGY,
+        RITUALS, AND PEOPLE THAT GIVE EVERY COMMUNITY ITS IDENTITY.
+      </div>
+
+      {/* Centered TORQ Mark */}
+      <div style={{
+        flex: 1,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "32px 0"
+      }}>
+        <img 
+          src="/images/torq_24_logo.png" 
+          alt="Torq 24 Logo" 
+          style={{ width: "160px", height: "auto" }} 
+        />
+      </div>
+
+      {/* Category Illustration Strip */}
+      <div style={{
+        width: "calc(100% + 32px)",
+        margin: "0 -16px",
+        padding: "0 16px",
+        overflowX: "auto",
+        display: "flex",
+        alignItems: "flex-end",
+        height: "120px",
+        WebkitOverflowScrolling: "touch"
+      }}>
+        <img 
+          src="/torqassets/vehicles/vehicles for split section.png" 
+          alt="Vehicles strip" 
+          style={{ height: "100%", width: "auto", objectFit: "contain", minWidth: "600px" }}
+        />
+      </div>
+    </div>
   );
 
   return (
@@ -226,31 +310,47 @@ export default function IdentityEventsSequence() {
         
         {/* ======================================= */}
         {/* LAYER 50: The Identity Split Doors      */}
-        <motion.div
-          style={{
-            position: "absolute",
-            top: 0, left: 0, width: "50vw", height: "100%",
-            overflow: "hidden", zIndex: 50,
-            x: useTransform(doorOffset, v => `-${v}`), // Moves left
-          }}
-        >
-          <div style={{ position: "absolute", top: 0, left: 0, width: "100vw", height: "100%" }}>
-            {renderIdentityContent()}
-          </div>
-        </motion.div>
+        {!isMobile ? (
+          <>
+            <motion.div
+              style={{
+                position: "absolute",
+                top: 0, left: 0, width: "50vw", height: "100%",
+                overflow: "hidden", zIndex: 50,
+                x: useTransform(doorOffset, v => `-${v}`), // Moves left
+              }}
+            >
+              <div style={{ position: "absolute", top: 0, left: 0, width: "100vw", height: "100%" }}>
+                {renderIdentityDesktop()}
+              </div>
+            </motion.div>
 
-        <motion.div
-          style={{
-            position: "absolute",
-            top: 0, right: 0, width: "50vw", height: "100%",
-            overflow: "hidden", zIndex: 50,
-            x: doorOffset, // Moves right
-          }}
-        >
-          <div style={{ position: "absolute", top: 0, right: 0, width: "100vw", height: "100%" }}>
-            {renderIdentityContent()}
-          </div>
-        </motion.div>
+            <motion.div
+              style={{
+                position: "absolute",
+                top: 0, right: 0, width: "50vw", height: "100%",
+                overflow: "hidden", zIndex: 50,
+                x: doorOffset, // Moves right
+              }}
+            >
+              <div style={{ position: "absolute", top: 0, right: 0, width: "100vw", height: "100%" }}>
+                {renderIdentityDesktop()}
+              </div>
+            </motion.div>
+          </>
+        ) : (
+          <motion.div
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 50,
+              opacity: useTransform(scrollYProgress, [0.3, 0.4], [1, 0]), // Fade out during collapse phase
+              pointerEvents: activeIndex > 0 ? "none" : "auto"
+            }}
+          >
+            {renderIdentityMobile()}
+          </motion.div>
+        )}
 
         {/* ======================================= */}
         {/* LAYER 10: The Upcoming Events Content   */}
