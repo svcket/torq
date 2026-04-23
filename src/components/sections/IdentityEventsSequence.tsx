@@ -227,7 +227,7 @@ export default function IdentityEventsSequence() {
       <div style={{
         fontFamily: "var(--font-anton), Anton, sans-serif",
         fontSize: "14px",
-        lineHeight: 1.2,
+        lineHeight: 1.4,
         color: "#111",
         textTransform: "uppercase",
         marginBottom: "14px",
@@ -240,7 +240,7 @@ export default function IdentityEventsSequence() {
       <div style={{
         fontFamily: "var(--font-anton), Anton, sans-serif",
         fontSize: "14px",
-        lineHeight: 1.2,
+        lineHeight: 1.4,
         color: "#111",
         textTransform: "uppercase",
         letterSpacing: "0.01em",
