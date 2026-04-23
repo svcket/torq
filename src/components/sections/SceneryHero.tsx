@@ -1,9 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { getCloudinaryUrl } from "@/lib/cloudinary";
 
 export default function SceneryHero() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <section 
       data-chrome-theme="light"
@@ -12,7 +25,7 @@ export default function SceneryHero() {
         width: "100%", 
         position: "relative", 
         overflow: "hidden",
-        backgroundColor: "#131111" // Fallback dark context
+        backgroundColor: "#131111"
       }}
     >
       {/* 1. CINEMATIC BACKGROUND IMAGE */}
@@ -31,30 +44,33 @@ export default function SceneryHero() {
             width: "100%", 
             height: "100%", 
             objectFit: "cover",
-            filter: "brightness(0.9) contrast(1.1)" // Subtle atmospheric reinforcement
+            filter: "brightness(0.9) contrast(1.1)"
           }}
         />
       </div>
 
-      {/* 2. TITLE LOCKUP (ANTON, ANCHORED LOW) */}
+      {/* 2. TITLE LOCKUP */}
       <div style={{ 
         position: "absolute", 
-        bottom: "80px", 
+        bottom: isMobile ? "60px" : "80px", 
         left: 0, 
         width: "100%", 
         display: "flex", 
         justifyContent: "center",
         zIndex: 10,
-        padding: "0 40px"
+        padding: isMobile ? "0 16px" : "0 40px",
+        boxSizing: "border-box"
       }}>
         <h2 style={{ 
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "72px",
+          fontSize: isMobile ? "32px" : "72px", // Significantly reduced for mobile fit
           lineHeight: "0.9",
           letterSpacing: "-0.01em",
           textTransform: "uppercase",
           textAlign: "center",
-          whiteSpace: "nowrap"
+          whiteSpace: isMobile ? "normal" : "nowrap", // Allow wrapping if still tight, but aim for single line
+          maxWidth: "100%",
+          wordBreak: "keep-all"
         }}>
           <span style={{ color: "#EF4826" }}>SCENERY </span>
           <span style={{ color: "#FFFFFF" }}>FROM </span>
@@ -62,7 +78,7 @@ export default function SceneryHero() {
         </h2>
       </div>
 
-      {/* 3. LEGIBILITY OVERLAY (Vignette + Protection) */}
+      {/* 3. LEGIBILITY OVERLAY */}
       <div style={{ 
         position: "absolute", 
         inset: 0, 
