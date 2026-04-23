@@ -101,32 +101,38 @@ function Divider({ mb = 28 }: { mb?: number }) {
 function IdentityContent({ isMobile }: { isMobile: boolean }) {
   if (isMobile) {
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "64px", width: "100%", padding: "0 24px" }}>
-        {/* Block 1 */}
+      <div style={{ 
+        display: "flex", 
+        flexDirection: "column", 
+        gap: "clamp(48px, 8vh, 80px)", 
+        width: "100%", 
+        padding: "0 clamp(16px, 4vw, 40px)",
+        maxWidth: "800px",
+        margin: "0 auto"
+      }}>
         <div style={{
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "24px",
+          fontSize: "clamp(20px, 4vw, 32px)",
           lineHeight: 1.1,
           color: "#111",
           textTransform: "uppercase",
           letterSpacing: "0.01em",
-          maxWidth: "90%",
+          maxWidth: "95%",
           fontWeight: "bold"
         }}>
           BUILT FOR THE CULTURE IN MOTION, TOR'Q BRINGS TOGETHER EVENTS, COMMUNITY
           VOICES, AND STORIES FROM THE PEOPLE SHAPING THE SCENE IN REAL TIME.
         </div>
         
-        {/* Block 2 */}
         <div style={{
           alignSelf: "flex-end",
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "24px",
+          fontSize: "clamp(20px, 4vw, 32px)",
           lineHeight: 1.1,
           color: "#111",
           textTransform: "uppercase",
           letterSpacing: "0.01em",
-          maxWidth: "85%",
+          maxWidth: "90%",
           textAlign: "left",
           fontWeight: "bold"
         }}>
@@ -134,22 +140,20 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
           RITUALS, AND PEOPLE THAT GIVE EVERY COMMUNITY ITS IDENTITY.
         </div>
         
-        {/* Large Logo */}
         <div style={{
           display: "flex",
           justifyContent: "center",
           marginTop: "20px"
         }}>
-          <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ width: "240px", height: "auto" }} />
+          <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ width: "clamp(180px, 30vw, 320px)", height: "auto" }} />
         </div>
 
-        {/* Bottom Illustration Strip */}
         <div style={{
           position: "absolute",
           bottom: "20px",
           left: "-10%",
           width: "120%",
-          height: "180px",
+          height: "clamp(140px, 25vh, 220px)",
           pointerEvents: "none",
           display: "flex",
           alignItems: "flex-end",
@@ -173,78 +177,19 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
   return (
     <>
       <div style={{ position: "absolute", inset: 0, backgroundColor: "#FFE7E3" }} />
-      <div style={{
-        position: "absolute",
-        top: "128px",
-        left: "40px",
-        width: "320px",
-        fontFamily: "var(--font-anton), Anton, sans-serif",
-        fontSize: "14px",
-        lineHeight: 1.4,
-        color: "#111",
-        textTransform: "uppercase",
-        zIndex: 10,
-        letterSpacing: "0.01em",
-      }}>
+      <div style={{ position: "absolute", top: "128px", left: "40px", width: "320px", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "14px", lineHeight: 1.4, color: "#111", textTransform: "uppercase", zIndex: 10, letterSpacing: "0.01em" }}>
         BUILT FOR THE CULTURE IN MOTION, TOR'Q BRINGS TOGETHER EVENTS, COMMUNITY
         VOICES, AND STORIES FROM THE PEOPLE SHAPING THE SCENE IN REAL TIME.
       </div>
-      <div style={{
-        position: "absolute",
-        top: "128px",
-        right: "40px",
-        width: "320px",
-        fontFamily: "var(--font-anton), Anton, sans-serif",
-        fontSize: "14px",
-        lineHeight: 1.4,
-        color: "#111",
-        textTransform: "uppercase",
-        zIndex: 10,
-        letterSpacing: "0.01em",
-        textAlign: "right",
-      }}>
+      <div style={{ position: "absolute", top: "128px", right: "40px", width: "320px", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "14px", lineHeight: 1.4, color: "#111", textTransform: "uppercase", zIndex: 10, letterSpacing: "0.01em", textAlign: "right" }}>
         FROM ASPHALT TO WATER, FROM ENGINES TO ATMOSPHERE, WE FOLLOW THE ENERGY,
         RITUALS, AND PEOPLE THAT GIVE EVERY COMMUNITY ITS IDENTITY.
       </div>
-      
-      <div style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        zIndex: 10,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}>
+      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ height: "13vh", width: "auto" }} />
       </div>
-
-      <div style={{
-        position: "absolute",
-        bottom: "-2vh",
-        left: 0,
-        width: "100%",
-        height: "35vh",
-        overflow: "hidden",
-        zIndex: 5,
-        pointerEvents: "none",
-        display: "flex",
-        alignItems: "flex-end"
-      }}>
-        <img 
-          src="/torqassets/vehicles/vehicles for split section.png" 
-          alt="Vehicles overlay" 
-          style={{ 
-            position: "absolute", 
-            bottom: 0, 
-            left: 0, 
-            width: "100vw", 
-            height: "auto", 
-            objectFit: "contain",
-            objectPosition: "left bottom",
-          }} 
-        />
+      <div style={{ position: "absolute", bottom: "-2vh", left: 0, width: "100%", height: "35vh", overflow: "hidden", zIndex: 5, pointerEvents: "none", display: "flex", alignItems: "flex-end" }}>
+        <img src="/torqassets/vehicles/vehicles for split section.png" alt="Vehicles overlay" style={{ position: "absolute", bottom: 0, left: 0, width: "100vw", height: "auto", objectFit: "contain", objectPosition: "left bottom" }} />
         <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "20vh", background: "linear-gradient(to bottom, #FFE7E3 0%, transparent 100%)" }} />
       </div>
     </>
@@ -256,10 +201,7 @@ function DesktopView() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest < 0.52) setActiveIndex(0);
@@ -338,60 +280,30 @@ function DesktopView() {
   return (
     <section ref={sectionRef} style={{ height: "800vh", position: "relative" }} aria-label="TORQ Identity & Upcoming Events Sequence">
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "#000" }}>
-        
-        <motion.div
-          style={{
-            position: "absolute",
-            top: 0, left: 0, width: "50vw", height: "100%",
-            overflow: "hidden", zIndex: 50,
-            x: useTransform(doorOffset, v => `-${v}`),
-          }}
-        >
+        <motion.div style={{ position: "absolute", top: 0, left: 0, width: "50vw", height: "100%", overflow: "hidden", zIndex: 50, x: useTransform(doorOffset, v => `-${v}`) }}>
           <div style={{ position: "absolute", top: 0, left: 0, width: "100vw", height: "100%" }}>
             <IdentityContent isMobile={false} />
           </div>
         </motion.div>
-
-        <motion.div
-          style={{
-            position: "absolute",
-            top: 0, right: 0, width: "50vw", height: "100%",
-            overflow: "hidden", zIndex: 50,
-            x: doorOffset,
-          }}
-        >
+        <motion.div style={{ position: "absolute", top: 0, right: 0, width: "50vw", height: "100%", overflow: "hidden", zIndex: 50, x: doorOffset }}>
           <div style={{ position: "absolute", top: 0, right: 0, width: "100vw", height: "100%" }}>
             <IdentityContent isMobile={false} />
           </div>
         </motion.div>
-
         <motion.div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: mediaWidth, overflow: "hidden", zIndex: 10 }}>
           <AnimatePresence>
-            <motion.div
-              key={EVENTS[activeIndex].id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              style={{ position: "absolute", inset: 0 }}
-            >
+            <motion.div key={EVENTS[activeIndex].id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: "easeOut" }} style={{ position: "absolute", inset: 0 }}>
               <img src={EVENTS[activeIndex].mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
             </motion.div>
           </AnimatePresence>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%)", pointerEvents: "none" }} />
           <motion.div style={{ position: "absolute", bottom: "7%", right: "40px", display: "flex", flexDirection: "column", gap: "10px", alignItems: "center", zIndex: 25, opacity: indicatorOpacity }}>
-            {EVENTS.map((_, idx) => (
-              <div key={idx} style={{ width: "2px", height: activeIndex === idx ? "26px" : "18px", backgroundColor: activeIndex === idx ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.25)", borderRadius: "1px", transition: "all 0.4s ease" }} />
-            ))}
+            {EVENTS.map((_, idx) => (<div key={idx} style={{ width: "2px", height: activeIndex === idx ? "26px" : "18px", backgroundColor: activeIndex === idx ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.25)", borderRadius: "1px", transition: "all 0.4s ease" }} />))}
           </motion.div>
         </motion.div>
-
         <motion.div style={{ position: "absolute", top: labelTop, left: labelLeft, x: labelTransX, zIndex: 30, pointerEvents: "none" }}>
-          <motion.span style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: labelFontSize, color: labelColor, textTransform: "uppercase", letterSpacing: labelLetterSpacing, lineHeight: 1, display: "block", whiteSpace: "nowrap" }}>
-            UPCOMING EVENTS
-          </motion.span>
+          <motion.span style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: labelFontSize, color: labelColor, textTransform: "uppercase", letterSpacing: labelLetterSpacing, lineHeight: 1, display: "block", whiteSpace: "nowrap" }}>UPCOMING EVENTS</motion.span>
         </motion.div>
-
         <motion.div style={{ position: "absolute", top: 0, right: 0, width: "28vw", height: "100%", backgroundColor: "#FFFFFF", zIndex: 20, x: rightPanelX, overflowY: "auto", overflowX: "hidden", boxSizing: "border-box", padding: "88px 40px 40px 40px", display: "flex", flexDirection: "column" }}>
           <motion.div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "40px", minHeight: "18px" }}>
             <a href="#" style={{ fontFamily: "var(--font-anton)", fontSize: "16px", color: "#EF4826", textTransform: "uppercase", letterSpacing: "0.05em", textDecoration: "underline", textUnderlineOffset: "4px", whiteSpace: "nowrap", lineHeight: 1 }}>SEE ALL EVENTS</a>
@@ -401,27 +313,15 @@ function DesktopView() {
               <h2 style={{ fontFamily: "var(--font-anton)", fontSize: "32px", color: "#111", textTransform: "uppercase", lineHeight: 1.05, letterSpacing: "0.01em", margin: "0 0 20px 0" }}>{EVENTS[activeIndex].title}</h2>
               <p style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#555", lineHeight: 1.6, margin: "0 0 32px 0" }}>{EVENTS[activeIndex].description}</p>
               <Divider mb={24} />
-              <div style={{ marginBottom: 24 }}>
-                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Date and Time</div>
-                <div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em" }}>{EVENTS[activeIndex].date}</div>
-              </div>
-              <div style={{ marginBottom: 24 }}>
-                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Venue</div>
-                <div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1.35 }}>{EVENTS[activeIndex].venue}</div>
-              </div>
+              <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Date and Time</div><div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em" }}>{EVENTS[activeIndex].date}</div></div>
+              <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Venue</div><div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1.35 }}>{EVENTS[activeIndex].venue}</div></div>
               <Divider mb={24} />
-              <div style={{ marginBottom: 24 }}>
-                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Highlights</div>
-                {EVENTS[activeIndex].highlights.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}
-              </div>
+              <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Highlights</div>{EVENTS[activeIndex].highlights.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}</div>
               <Divider mb={24} />
-              <div style={{ marginBottom: "auto", paddingBottom: 20 }}>
-                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Expected Line-ups</div>
-                {EVENTS[activeIndex].lineups.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}
-              </div>
+              <div style={{ marginBottom: "auto", paddingBottom: 20 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Expected Line-ups</div>{EVENTS[activeIndex].lineups.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}</div>
               <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>
-                <button style={{ flex: 1, height: 48, border: "2px solid #111", backgroundColor: "transparent", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#111", textTransform: "uppercase", letterSpacing: "0.1em", cursor: "pointer", transition: "background 0.2s, color 0.2s" }}>MORE DETAILS</button>
-                <button style={{ flex: 1, height: 52, border: "none", backgroundColor: "#EF4826", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em", cursor: "pointer", transition: "background 0.2s" }}>ATTEND EVENT</button>
+                <button style={{ flex: 1, height: 48, border: "2px solid #111", backgroundColor: "transparent", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#111", textTransform: "uppercase", letterSpacing: "0.1em", cursor: "pointer" }}>MORE DETAILS</button>
+                <button style={{ flex: 1, height: 52, border: "none", backgroundColor: "#EF4826", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em", cursor: "pointer" }}>ATTEND EVENT</button>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -434,97 +334,36 @@ function DesktopView() {
 // -- Mobile View Component --------------------------------------------------
 function MobileView() {
   return (
-    <section 
-      data-chrome-theme="dark"
-      aria-label="TORQ Identity & Upcoming Events Sequence"
-      style={{ backgroundColor: "#FFE7E3", position: "relative" }}
-    >
-      <div style={{ 
-        height: "100vh", 
-        display: "flex", 
-        flexDirection: "column", 
-        padding: "120px 0 0 0",
-        position: "relative",
-        overflow: "hidden"
-      }}>
+    <section data-chrome-theme="dark" aria-label="TORQ Identity & Upcoming Events Sequence" style={{ backgroundColor: "#FFE7E3", position: "relative" }}>
+      <div style={{ height: "100vh", display: "flex", flexDirection: "column", padding: "120px 0 0 0", position: "relative", overflow: "hidden" }}>
         <IdentityContent isMobile={true} />
       </div>
-
-      <div style={{ backgroundColor: "#FFFFFF", padding: "64px 0" }}>
-        <div style={{ padding: "0 24px", marginBottom: "40px" }}>
-          <h2 style={{ 
-            fontFamily: "var(--font-anton), Anton, sans-serif", 
-            fontSize: "42px", 
-            color: "#111", 
-            textTransform: "uppercase",
-            letterSpacing: "0.03em",
-            lineHeight: 1
-          }}>UPCOMING EVENTS</h2>
+      <div style={{ backgroundColor: "#FFFFFF", padding: "clamp(48px, 10vh, 96px) 0" }}>
+        <div style={{ padding: "0 clamp(16px, 4vw, 40px)", marginBottom: "clamp(32px, 5vh, 64px)", maxWidth: "1200px", margin: "0 auto" }}>
+          <h2 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "clamp(36px, 6vw, 56px)", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1 }}>UPCOMING EVENTS</h2>
         </div>
-        
-        {EVENTS.map((event) => (
-          <div key={event.id} style={{ marginBottom: "64px", borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "48px" }}>
-            <div style={{ width: "100%", height: "280px", marginBottom: "24px", overflow: "hidden" }}>
-              <img src={event.mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
-            </div>
-            <div style={{ padding: "0 24px" }}>
-              <h3 style={{ 
-                fontFamily: "var(--font-anton), Anton, sans-serif", 
-                fontSize: "28px", 
-                color: "#111", 
-                textTransform: "uppercase",
-                marginBottom: "16px",
-                lineHeight: 1.1
-              }}>{event.title}</h3>
-              
-              <p style={{ 
-                fontFamily: "var(--font-bricolage), sans-serif", 
-                fontSize: "15px", 
-                color: "#555", 
-                lineHeight: 1.6,
-                marginBottom: "24px"
-              }}>{event.description}</p>
-              
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "32px" }}>
-                <div>
-                  <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "12px", color: "#9C8981", textTransform: "uppercase", marginBottom: "4px" }}>Date</div>
-                  <div style={{ fontFamily: "var(--font-anton)", fontSize: "14px", color: "#111" }}>{event.date}</div>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(48px, 8vh, 96px)" }}>
+          {EVENTS.map((event) => (
+            <div key={event.id} style={{ borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "clamp(32px, 6vh, 64px)" }}>
+              <div style={{ width: "100%", height: "clamp(240px, 35vh, 440px)", marginBottom: "clamp(20px, 3vh, 40px)", overflow: "hidden" }}>
+                <img src={event.mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
+              </div>
+              <div style={{ padding: "0 clamp(16px, 4vw, 40px)" }}>
+                <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "clamp(24px, 4vw, 36px)", color: "#111", textTransform: "uppercase", marginBottom: "16px", lineHeight: 1.1 }}>{event.title}</h3>
+                <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "clamp(14px, 2vw, 16px)", color: "#555", lineHeight: 1.6, marginBottom: "24px" }}>{event.description}</p>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(16px, 3vw, 32px)", marginBottom: "clamp(24px, 4vh, 48px)" }}>
+                  <div><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "12px", color: "#9C8981", textTransform: "uppercase", marginBottom: "4px" }}>Date</div><div style={{ fontFamily: "var(--font-anton)", fontSize: "clamp(13px, 1.5vw, 15px)", color: "#111" }}>{event.date}</div></div>
+                  <div><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "12px", color: "#9C8981", textTransform: "uppercase", marginBottom: "4px" }}>Venue</div><div style={{ fontFamily: "var(--font-anton)", fontSize: "clamp(13px, 1.5vw, 15px)", color: "#111", lineHeight: 1.2 }}>{event.venue}</div></div>
                 </div>
-                <div>
-                  <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "12px", color: "#9C8981", textTransform: "uppercase", marginBottom: "4px" }}>Venue</div>
-                  <div style={{ fontFamily: "var(--font-anton)", fontSize: "14px", color: "#111", lineHeight: 1.2 }}>{event.venue}</div>
+                <div style={{ display: "flex", gap: "12px" }}>
+                  <button style={{ flex: 1, height: "48px", backgroundColor: "transparent", color: "#111", border: "2px solid #111", fontFamily: "var(--font-anton)", textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "14px" }}>MORE DETAILS</button>
+                  <button style={{ flex: 1, height: "48px", backgroundColor: "#EF4826", color: "#FFFFFF", border: "none", fontFamily: "var(--font-anton)", textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "14px" }}>ATTEND EVENT</button>
                 </div>
               </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <button style={{ 
-                  flex: 1,
-                  height: "48px", 
-                  backgroundColor: "transparent", 
-                  color: "#111", 
-                  border: "2px solid #111",
-                  fontFamily: "var(--font-anton)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  fontSize: "14px"
-                }}>MORE DETAILS</button>
-                <button style={{ 
-                  flex: 1,
-                  height: "48px", 
-                  backgroundColor: "#EF4826", 
-                  color: "#FFFFFF", 
-                  border: "none",
-                  fontFamily: "var(--font-anton)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  fontSize: "14px"
-                }}>ATTEND EVENT</button>
-              </div>
             </div>
-          </div>
-        ))}
-
-        <div style={{ padding: "0 24px", textAlign: "center" }}>
+          ))}
+        </div>
+        <div style={{ padding: "48px clamp(16px, 4vw, 40px) 0", textAlign: "center" }}>
            <a href="#" style={{ fontFamily: "var(--font-anton)", color: "#EF4826", textDecoration: "underline", fontSize: "18px" }}>SEE ALL EVENTS</a>
         </div>
       </div>
@@ -539,18 +378,14 @@ export default function IdentityEventsSequence() {
 
   useEffect(() => {
     setMounted(true);
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   if (!mounted) {
-    return (
-      <section style={{ height: "100vh", backgroundColor: "#FFE7E3", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <img src="/images/torq_24_logo.png" alt="Torq Logo" style={{ height: "13vh", opacity: 0.1 }} />
-      </section>
-    );
+    return (<section style={{ height: "100vh", backgroundColor: "#FFE7E3", display: "flex", alignItems: "center", justifyContent: "center" }}><img src="/images/torq_24_logo.png" alt="Torq Logo" style={{ height: "13vh", opacity: 0.1 }} /></section>);
   }
 
   return isMobile ? <MobileView /> : <DesktopView />;

@@ -89,44 +89,42 @@ function MobileIntroFrame() {
       display: "flex", 
       flexDirection: "column", 
       justifyContent: "center",
-      alignItems: "center", // Centered for responsive balance
-      padding: "0 24px",
+      alignItems: "center",
+      padding: "0 clamp(16px, 4vw, 40px)", // Responsive padding
       backgroundColor: "#131111",
       position: "relative"
     }}>
-      {/* 
-          Disciplined Lockup Container
-          Constrains the text so it doesn't drift apart on tablets/wider mobile 
-      */}
       <div style={{
         display: "flex",
         flexDirection: "column",
-        gap: "24px",
+        gap: "clamp(16px, 3vh, 40px)", // Responsive gap
         width: "100%",
-        maxWidth: "600px", // Constrain the lockup width
+        maxWidth: "clamp(280px, 85vw, 680px)", // Bounded width for tablet
         margin: "0 auto"
       }}>
         <div style={{
-          alignSelf: "flex-end", // Still staggered, but bounded by the 600px container
+          alignSelf: "flex-end",
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(32px, 6vw, 48px)", // Fluid typography for mobile to tablet
+          fontSize: "clamp(28px, 7vw, 64px)", // Fluid scaling for intro text
           lineHeight: "1",
           color: "white",
           textTransform: "uppercase",
           textAlign: "right",
-          maxWidth: "85%"
+          maxWidth: "90%",
+          letterSpacing: "-0.01em"
         }}>
           WE MOVE <span style={{ color: "#EF4826" }}>SIDEWAYS,</span>
         </div>
         <div style={{
-          alignSelf: "flex-start", // Still staggered, but bounded by the 600px container
+          alignSelf: "flex-start",
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(32px, 6vw, 48px)", // Fluid typography for mobile to tablet
+          fontSize: "clamp(28px, 7vw, 64px)", // Fluid scaling for intro text
           lineHeight: "1",
           color: "white",
           textTransform: "uppercase",
           textAlign: "left",
-          maxWidth: "85%"
+          maxWidth: "90%",
+          letterSpacing: "-0.01em"
         }}>
           BUT NEVER <span style={{ color: "#EF4826" }}>WITHOUT CONTROL.</span>
         </div>
@@ -140,22 +138,22 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
   
   return (
     <div style={{
-      width: "clamp(280px, 85vw, 440px)", // Responsive width for mobile and tablet
+      width: "clamp(300px, 88vw, 500px)", // Stable width across phone/tablet
       height: "100%",
       flexShrink: 0,
       display: "flex",
       flexDirection: "column",
-      padding: "0 24px",
+      padding: "0 clamp(16px, 4vw, 40px)",
       justifyContent: isTop ? "flex-start" : "flex-end",
-      paddingTop: isTop ? "140px" : "0",
-      paddingBottom: isTop ? "0" : "100px"
+      paddingTop: isTop ? "clamp(100px, 15vh, 180px)" : "0", // Responsive stagger
+      paddingBottom: isTop ? "0" : "clamp(80px, 12vh, 140px)" // Responsive stagger
     }}>
       {isTop ? (
         <>
-          <div style={{ marginBottom: "32px" }}>
+          <div style={{ marginBottom: "clamp(24px, 4vh, 48px)" }}>
             <h3 style={{ 
               fontFamily: "var(--font-anton), Anton, sans-serif",
-              fontSize: "clamp(28px, 4vw, 36px)",
+              fontSize: "clamp(28px, 5vw, 42px)", // Scaling card name
               color: "white",
               textTransform: "uppercase",
               marginBottom: "12px",
@@ -165,17 +163,17 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
             </h3>
             <p style={{ 
               fontFamily: "var(--font-bricolage), sans-serif",
-              fontSize: "15px",
+              fontSize: "clamp(14px, 2vw, 16px)", // Scaling description
               color: "rgba(255,255,255,0.8)",
               lineHeight: "1.5",
-              maxWidth: "280px"
+              maxWidth: "320px"
             }}>
               {face.desc}
             </p>
           </div>
           <div style={{ 
             width: "100%", 
-            height: "clamp(300px, 55vh, 600px)", 
+            height: "clamp(320px, 55vh, 650px)", 
             overflow: "hidden"
           }}>
             <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -185,16 +183,16 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
         <>
           <div style={{ 
             width: "100%", 
-            height: "clamp(300px, 55vh, 600px)", 
+            height: "clamp(320px, 55vh, 650px)", 
             overflow: "hidden",
-            marginBottom: "32px"
+            marginBottom: "clamp(24px, 4vh, 48px)"
           }}>
             <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           </div>
           <div>
             <h3 style={{ 
               fontFamily: "var(--font-anton), Anton, sans-serif",
-              fontSize: "clamp(28px, 4vw, 36px)",
+              fontSize: "clamp(28px, 5vw, 42px)",
               color: "white",
               textTransform: "uppercase",
               marginBottom: "12px",
@@ -204,10 +202,10 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
             </h3>
             <p style={{ 
               fontFamily: "var(--font-bricolage), sans-serif",
-              fontSize: "15px",
+              fontSize: "clamp(14px, 2vw, 16px)",
               color: "rgba(255,255,255,0.8)",
               lineHeight: "1.5",
-              maxWidth: "280px"
+              maxWidth: "320px"
             }}>
               {face.desc}
             </p>
@@ -345,14 +343,14 @@ function MobileView() {
             x, 
             height: "100%", 
             alignItems: "stretch",
-            gap: "24px"
+            gap: "clamp(24px, 5vw, 64px)" // Fluid gap between cards
           }}
         >
           <MobileIntroFrame />
           {FACES.map((face, index) => (
             <MobileCard key={face.id} face={face} index={index} />
           ))}
-          <div style={{ width: "24px", flexShrink: 0 }} />
+          <div style={{ width: "clamp(24px, 5vw, 64px)", flexShrink: 0 }} />
         </motion.div>
       </div>
     </section>
@@ -366,7 +364,7 @@ export default function MovementGallery() {
 
   useEffect(() => {
     setMounted(true);
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024); // Increased breakpoint to catch tablets
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
