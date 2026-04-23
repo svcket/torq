@@ -99,14 +99,85 @@ function Divider({ mb = 28 }: { mb?: number }) {
 
 // -- Shared Components ------------------------------------------------------
 function IdentityContent({ isMobile }: { isMobile: boolean }) {
+  if (isMobile) {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "64px", width: "100%", padding: "0 24px" }}>
+        {/* Block 1 */}
+        <div style={{
+          fontFamily: "var(--font-anton), Anton, sans-serif",
+          fontSize: "24px",
+          lineHeight: 1.1,
+          color: "#111",
+          textTransform: "uppercase",
+          letterSpacing: "0.01em",
+          maxWidth: "90%",
+          fontWeight: "bold"
+        }}>
+          BUILT FOR THE CULTURE IN MOTION, TOR'Q BRINGS TOGETHER EVENTS, COMMUNITY
+          VOICES, AND STORIES FROM THE PEOPLE SHAPING THE SCENE IN REAL TIME.
+        </div>
+        
+        {/* Block 2 */}
+        <div style={{
+          alignSelf: "flex-end",
+          fontFamily: "var(--font-anton), Anton, sans-serif",
+          fontSize: "24px",
+          lineHeight: 1.1,
+          color: "#111",
+          textTransform: "uppercase",
+          letterSpacing: "0.01em",
+          maxWidth: "85%",
+          textAlign: "left",
+          fontWeight: "bold"
+        }}>
+          FROM ASPHALT TO WATER, FROM ENGINES TO ATMOSPHERE, WE FOLLOW THE ENERGY,
+          RITUALS, AND PEOPLE THAT GIVE EVERY COMMUNITY ITS IDENTITY.
+        </div>
+        
+        {/* Large Logo */}
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "20px"
+        }}>
+          <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ width: "240px", height: "auto" }} />
+        </div>
+
+        {/* Bottom Illustration Strip */}
+        <div style={{
+          position: "absolute",
+          bottom: "20px",
+          left: "-10%",
+          width: "120%",
+          height: "180px",
+          pointerEvents: "none",
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "center"
+        }}>
+          <img 
+            src="/torqassets/vehicles/vehicles for split section.png" 
+            alt="Vehicles overlay" 
+            style={{ 
+              width: "100%", 
+              height: "100%", 
+              objectFit: "contain",
+              objectPosition: "center bottom"
+            }} 
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      {!isMobile && <div style={{ position: "absolute", inset: 0, backgroundColor: "#FFE7E3" }} />}
+      <div style={{ position: "absolute", inset: 0, backgroundColor: "#FFE7E3" }} />
       <div style={{
-        position: isMobile ? "relative" : "absolute",
-        top: isMobile ? "0" : "128px",
-        left: isMobile ? "40px" : "40px", // Fixed layout
-        width: isMobile ? "100%" : "320px",
+        position: "absolute",
+        top: "128px",
+        left: "40px",
+        width: "320px",
         fontFamily: "var(--font-anton), Anton, sans-serif",
         fontSize: "14px",
         lineHeight: 1.4,
@@ -114,17 +185,15 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
         textTransform: "uppercase",
         zIndex: 10,
         letterSpacing: "0.01em",
-        marginBottom: isMobile ? "14px" : "0",
-        padding: isMobile ? "0 16px" : "0"
       }}>
         BUILT FOR THE CULTURE IN MOTION, TOR'Q BRINGS TOGETHER EVENTS, COMMUNITY
         VOICES, AND STORIES FROM THE PEOPLE SHAPING THE SCENE IN REAL TIME.
       </div>
       <div style={{
-        position: isMobile ? "relative" : "absolute",
-        top: isMobile ? "0" : "128px",
-        right: isMobile ? "40px" : "40px", // Fixed layout
-        width: isMobile ? "100%" : "320px",
+        position: "absolute",
+        top: "128px",
+        right: "40px",
+        width: "320px",
         fontFamily: "var(--font-anton), Anton, sans-serif",
         fontSize: "14px",
         lineHeight: 1.4,
@@ -132,34 +201,31 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
         textTransform: "uppercase",
         zIndex: 10,
         letterSpacing: "0.01em",
-        textAlign: isMobile ? "left" : "right",
-        marginBottom: isMobile ? "48px" : "0",
-        padding: isMobile ? "0 16px" : "0"
+        textAlign: "right",
       }}>
         FROM ASPHALT TO WATER, FROM ENGINES TO ATMOSPHERE, WE FOLLOW THE ENERGY,
         RITUALS, AND PEOPLE THAT GIVE EVERY COMMUNITY ITS IDENTITY.
       </div>
       
       <div style={{
-        position: isMobile ? "relative" : "absolute",
-        top: isMobile ? "0" : "50%",
-        left: isMobile ? "0" : "50%",
-        transform: isMobile ? "none" : "translate(-50%, -50%)",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
         zIndex: 10,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: isMobile ? "40px 0" : "0"
       }}>
-        <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ height: isMobile ? "auto" : "13vh", width: isMobile ? "180px" : "auto" }} />
+        <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ height: "13vh", width: "auto" }} />
       </div>
 
       <div style={{
-        position: isMobile ? "relative" : "absolute",
-        bottom: isMobile ? "0" : "-2vh",
+        position: "absolute",
+        bottom: "-2vh",
         left: 0,
         width: "100%",
-        height: isMobile ? "160px" : "35vh",
+        height: "35vh",
         overflow: "hidden",
         zIndex: 5,
         pointerEvents: "none",
@@ -170,17 +236,16 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
           src="/torqassets/vehicles/vehicles for split section.png" 
           alt="Vehicles overlay" 
           style={{ 
-            position: isMobile ? "static" : "absolute", 
+            position: "absolute", 
             bottom: 0, 
             left: 0, 
-            width: isMobile ? "auto" : "100vw", 
-            height: isMobile ? "100%" : "auto", 
+            width: "100vw", 
+            height: "auto", 
             objectFit: "contain",
             objectPosition: "left bottom",
-            minWidth: isMobile ? "600px" : "none"
           }} 
         />
-        {!isMobile && <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "20vh", background: "linear-gradient(to bottom, #FFE7E3 0%, transparent 100%)" }} />}
+        <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "20vh", background: "linear-gradient(to bottom, #FFE7E3 0%, transparent 100%)" }} />
       </div>
     </>
   );
@@ -204,13 +269,13 @@ function DesktopView() {
     else setActiveIndex(4);
 
     if (latest < 0.15) {
-      sectionRef.current?.setAttribute("data-chrome-theme", "dark");
+      sectionRef.current?.setAttribute("data-chrome-theme", "dark"); // Dark theme = Black icons in GlobalChrome
       sectionRef.current?.setAttribute("data-chrome-logo", "visible");
     } else if (latest < 0.40) {
       sectionRef.current?.setAttribute("data-chrome-theme", "dark");
       sectionRef.current?.setAttribute("data-chrome-logo", "hidden");
     } else {
-      sectionRef.current?.setAttribute("data-chrome-theme", "light");
+      sectionRef.current?.setAttribute("data-chrome-theme", "light"); // Light theme = White icons in GlobalChrome
       sectionRef.current?.setAttribute("data-chrome-cart-theme", "dark");
       sectionRef.current?.setAttribute("data-chrome-logo", "visible");
     }
@@ -370,15 +435,15 @@ function DesktopView() {
 function MobileView() {
   return (
     <section 
-      data-chrome-theme="light" 
+      data-chrome-theme="dark" // Dark theme in GlobalChrome = Black icons
       aria-label="TORQ Identity & Upcoming Events Sequence"
-      style={{ backgroundColor: "#FFE7E3" }}
+      style={{ backgroundColor: "#FFE7E3", position: "relative" }}
     >
       <div style={{ 
-        minHeight: "100vh", 
+        height: "100vh", 
         display: "flex", 
         flexDirection: "column", 
-        padding: "80px 16px 24px 16px",
+        padding: "120px 0 0 0", // Generous space below nav
         position: "relative",
         overflow: "hidden"
       }}>
@@ -466,11 +531,9 @@ export default function IdentityEventsSequence() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Prevent hydration mismatch by only rendering client-specific views after mount
   if (!mounted) {
     return (
       <section style={{ height: "100vh", backgroundColor: "#FFE7E3", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        {/* Simple loader or static logo to match SSR */}
         <img src="/images/torq_24_logo.png" alt="Torq Logo" style={{ height: "13vh", opacity: 0.1 }} />
       </section>
     );
