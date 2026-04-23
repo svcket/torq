@@ -325,7 +325,7 @@ export default function BrandsFaqSequence() {
             }}
           >
             <img 
-              src="/torqassets/faq + newsletter/faq - entry image - main faq image.jpg" 
+              src="/torqassets/faq-newsletter/faq - entry image - main faq image.jpg" 
               alt="" 
               style={{ width: "100%", height: "100%", objectFit: "cover" }} 
             />
@@ -402,7 +402,7 @@ export default function BrandsFaqSequence() {
         >
           {/* Background Image (Isolated to this layer) */}
           <img 
-            src="/torqassets/faq + newsletter/faq - exit image - newsletter sin up image.jpg" 
+            src="/torqassets/faq-newsletter/faq - exit image - newsletter sin up image.jpg" 
             alt="" 
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} 
           />

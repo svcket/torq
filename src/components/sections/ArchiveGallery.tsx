@@ -5,28 +5,28 @@ import { motion } from "framer-motion";
 
 // --- Constants & Static Data ---
 const FEATURED_IMAGES = [
-  "/torqassets/gallery : memories/first gallery carousel - image 1.jpg", 
-  "/torqassets/gallery : memories/first gallery carousel - image 2.jpg", 
-  "/torqassets/gallery : memories/first gallery carousel - image 3.jpg", 
-  "/torqassets/gallery : memories/first gallery carousel - image 4.jpg",
-  "/torqassets/gallery : memories/first gallery carousel - image 5.jpg",
-  "/torqassets/gallery : memories/first gallery carousel - image 6.jpg"
+  "/torqassets/gallery-memories/first gallery carousel - image 1.jpg", 
+  "/torqassets/gallery-memories/first gallery carousel - image 2.jpg", 
+  "/torqassets/gallery-memories/first gallery carousel - image 3.jpg", 
+  "/torqassets/gallery-memories/first gallery carousel - image 4.jpg",
+  "/torqassets/gallery-memories/first gallery carousel - image 5.jpg",
+  "/torqassets/gallery-memories/first gallery carousel - image 6.jpg"
 ];
 
 const MOSAIC_IMAGES = [
-  "/torqassets/gallery : memories/second gallery carousel - image 1.jpg", 
-  "/torqassets/gallery : memories/second gallery carousel - image 2.jpg.jpg", 
-  "/torqassets/gallery : memories/second gallery carousel - image 3.jpg", 
-  "/torqassets/gallery : memories/second gallery carousel - image 4.jpg",
-  "/torqassets/gallery : memories/second gallery carousel - image 5.jpg", 
-  "/torqassets/gallery : memories/second gallery carousel - image 6.jpg", 
-  "/torqassets/gallery : memories/second gallery carousel - image 7.jpg", 
-  "/torqassets/gallery : memories/second gallery carousel - image 8.jpg"
+  "/torqassets/gallery-memories/second gallery carousel - image 1.jpg", 
+  "/torqassets/gallery-memories/second gallery carousel - image 2.jpg.jpg", 
+  "/torqassets/gallery-memories/second gallery carousel - image 3.jpg", 
+  "/torqassets/gallery-memories/second gallery carousel - image 4.jpg",
+  "/torqassets/gallery-memories/second gallery carousel - image 5.jpg", 
+  "/torqassets/gallery-memories/second gallery carousel - image 6.jpg", 
+  "/torqassets/gallery-memories/second gallery carousel - image 7.jpg", 
+  "/torqassets/gallery-memories/second gallery carousel - image 8.jpg"
 ];
 
 const DOCUMENTARY_IMAGES = [
-  "/torqassets/gallery : memories/third image carousel - iage 1.jpg", 
-  "/torqassets/gallery : memories/third image carousel - iage 2.jpg"
+  "/torqassets/gallery-memories/third image carousel - iage 1.jpg", 
+  "/torqassets/gallery-memories/third image carousel - iage 2.jpg"
 ];
 
 // --- Specialized Sub-components ---
