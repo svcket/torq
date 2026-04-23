@@ -89,37 +89,44 @@ function MobileIntroFrame() {
       display: "flex", 
       flexDirection: "column", 
       justifyContent: "center",
+      alignItems: "center", // Centered for responsive balance
       padding: "0 24px",
       backgroundColor: "#131111",
       position: "relative"
     }}>
+      {/* 
+          Disciplined Lockup Container
+          Constrains the text so it doesn't drift apart on tablets/wider mobile 
+      */}
       <div style={{
         display: "flex",
         flexDirection: "column",
-        gap: "16px",
-        width: "100%"
+        gap: "24px",
+        width: "100%",
+        maxWidth: "600px", // Constrain the lockup width
+        margin: "0 auto"
       }}>
         <div style={{
-          alignSelf: "flex-end",
+          alignSelf: "flex-end", // Still staggered, but bounded by the 600px container
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "32px", // Reduced from 42px to prevent awkward breaking
+          fontSize: "clamp(32px, 6vw, 48px)", // Fluid typography for mobile to tablet
           lineHeight: "1",
           color: "white",
           textTransform: "uppercase",
           textAlign: "right",
-          maxWidth: "90%"
+          maxWidth: "85%"
         }}>
           WE MOVE <span style={{ color: "#EF4826" }}>SIDEWAYS,</span>
         </div>
         <div style={{
-          alignSelf: "flex-start",
+          alignSelf: "flex-start", // Still staggered, but bounded by the 600px container
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "32px", // Reduced from 42px to prevent awkward breaking
+          fontSize: "clamp(32px, 6vw, 48px)", // Fluid typography for mobile to tablet
           lineHeight: "1",
           color: "white",
           textTransform: "uppercase",
           textAlign: "left",
-          maxWidth: "90%"
+          maxWidth: "85%"
         }}>
           BUT NEVER <span style={{ color: "#EF4826" }}>WITHOUT CONTROL.</span>
         </div>
@@ -133,7 +140,7 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
   
   return (
     <div style={{
-      width: "85vw",
+      width: "clamp(280px, 85vw, 440px)", // Responsive width for mobile and tablet
       height: "100%",
       flexShrink: 0,
       display: "flex",
@@ -148,7 +155,7 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
           <div style={{ marginBottom: "32px" }}>
             <h3 style={{ 
               fontFamily: "var(--font-anton), Anton, sans-serif",
-              fontSize: "36px",
+              fontSize: "clamp(28px, 4vw, 36px)",
               color: "white",
               textTransform: "uppercase",
               marginBottom: "12px",
@@ -168,7 +175,7 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
           </div>
           <div style={{ 
             width: "100%", 
-            height: "55vh", 
+            height: "clamp(300px, 55vh, 600px)", 
             overflow: "hidden"
           }}>
             <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -178,7 +185,7 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
         <>
           <div style={{ 
             width: "100%", 
-            height: "55vh", 
+            height: "clamp(300px, 55vh, 600px)", 
             overflow: "hidden",
             marginBottom: "32px"
           }}>
@@ -187,7 +194,7 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
           <div>
             <h3 style={{ 
               fontFamily: "var(--font-anton), Anton, sans-serif",
-              fontSize: "36px",
+              fontSize: "clamp(28px, 4vw, 36px)",
               color: "white",
               textTransform: "uppercase",
               marginBottom: "12px",
@@ -359,7 +366,7 @@ export default function MovementGallery() {
 
   useEffect(() => {
     setMounted(true);
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024); // Increased breakpoint to catch tablets
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
