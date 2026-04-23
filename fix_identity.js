@@ -269,7 +269,7 @@ export default function IdentityEventsSequence() {
             left: 0, 
             width: isMobile ? "auto" : "100vw", 
             height: isMobile ? "100%" : "auto", 
-            objectFit: isMobile ? "contain" : "cover",
+            objectFit: "contain",
             objectPosition: "left bottom",
             minWidth: isMobile ? "600px" : "none"
           }} 
@@ -392,54 +392,54 @@ export default function IdentityEventsSequence() {
             x: doorOffset,
           }}
         >
-          <div style={{ position: "absolute", top: 0, right: 0, width: "100vw", height: "100%\" }}>
+          <div style={{ position: "absolute", top: 0, right: 0, width: "100vw", height: "100%" }}>
             {renderIdentityContent()}
           </div>
         </motion.div>
 
-        <motion.div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: mediaWidth, overflow: \"hidden\", zIndex: 10 }}>
+        <motion.div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: mediaWidth, overflow: "hidden", zIndex: 10 }}>
           <AnimatePresence>
             <motion.div
               key={EVENTS[activeIndex].id}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: \"easeOut\" }}
-              style={{ position: \"absolute\", inset: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              style={{ position: "absolute", inset: 0 }}
             >
-              <img src={EVENTS[activeIndex].mediaUrl} style={{ width: \"100%\", height: \"100%\", objectFit: \"cover\" }} alt=\"\" />
+              <img src={EVENTS[activeIndex].mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
             </motion.div>
           </AnimatePresence>
-          <div style={{ position: \"absolute\", inset: 0, background: \"linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%)\", pointerEvents: \"none\" }} />
-          <motion.div style={{ position: \"absolute\", bottom: \"7%\", right: \"40px\", display: \"flex\", flexDirection: \"column\", gap: \"10px\", alignItems: \"center\", zIndex: 25, opacity: indicatorOpacity }}>
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%)", pointerEvents: "none" }} />
+          <motion.div style={{ position: "absolute", bottom: "7%", right: "40px", display: "flex", flexDirection: "column", gap: "10px", alignItems: "center", zIndex: 25, opacity: indicatorOpacity }}>
             {EVENTS.map((_, idx) => (
-              <div key={idx} style={{ width: \"2px\", height: activeIndex === idx ? \"26px\" : \"18px\", backgroundColor: activeIndex === idx ? \"rgba(255,255,255,1)\" : \"rgba(255,255,255,0.25)\", borderRadius: \"1px\", transition: \"all 0.4s ease\" }} />
+              <div key={idx} style={{ width: "2px", height: activeIndex === idx ? "26px" : "18px", backgroundColor: activeIndex === idx ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.25)", borderRadius: "1px", transition: "all 0.4s ease" }} />
             ))}
           </motion.div>
         </motion.div>
 
-        <motion.div style={{ position: \"absolute\", top: labelTop, left: labelLeft, x: labelTransX, zIndex: 30, pointerEvents: \"none\" }}>
-          <motion.span style={{ fontFamily: \"var(--font-anton), Anton, sans-serif\", fontSize: labelFontSize, color: labelColor, textTransform: \"uppercase\", letterSpacing: labelLetterSpacing, lineHeight: 1, display: \"block\", whiteSpace: \"nowrap\" }}>
+        <motion.div style={{ position: "absolute", top: labelTop, left: labelLeft, x: labelTransX, zIndex: 30, pointerEvents: "none" }}>
+          <motion.span style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: labelFontSize, color: labelColor, textTransform: "uppercase", letterSpacing: labelLetterSpacing, lineHeight: 1, display: "block", whiteSpace: "nowrap" }}>
             UPCOMING EVENTS
           </motion.span>
         </motion.div>
 
-        <motion.div style={{ position: \"absolute\", top: 0, right: 0, width: \"28vw\", height: \"100%\", backgroundColor: \"#FFFFFF\", zIndex: 20, x: rightPanelX, overflowY: \"auto\", overflowX: \"hidden\", boxSizing: \"border-box\", padding: \"88px 40px 40px 40px\", display: \"flex\", flexDirection: \"column\" }}>
-          <motion.div style={{ display: \"flex\", justifyContent: \"flex-end\", alignItems: \"center\", marginBottom: \"40px\", minHeight: \"18px\" }}>
-            <a href=\"#\" style={{ fontFamily: \"var(--font-anton)\", fontSize: \"16px\", color: \"#EF4826\", textTransform: \"uppercase\", letterSpacing: \"0.05em\", textDecoration: \"underline\", textUnderlineOffset: \"4px\", whiteSpace: \"nowrap\", lineHeight: 1 }}>SEE ALL EVENTS</a>
+        <motion.div style={{ position: "absolute", top: 0, right: 0, width: "28vw", height: "100%", backgroundColor: "#FFFFFF", zIndex: 20, x: rightPanelX, overflowY: "auto", overflowX: "hidden", boxSizing: "border-box", padding: "88px 40px 40px 40px", display: "flex", flexDirection: "column" }}>
+          <motion.div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "40px", minHeight: "18px" }}>
+            <a href="#" style={{ fontFamily: "var(--font-anton)", fontSize: "16px", color: "#EF4826", textTransform: "uppercase", letterSpacing: "0.05em", textDecoration: "underline", textUnderlineOffset: "4px", whiteSpace: "nowrap", lineHeight: 1 }}>SEE ALL EVENTS</a>
           </motion.div>
-          <AnimatePresence mode=\"wait\">
-            <motion.div key={EVENTS[activeIndex].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} style={{ display: \"flex\", flexDirection: \"column\", flexGrow: 1 }}>
-              <h2 style={{ fontFamily: \"var(--font-anton)\", fontSize: \"32px\", color: \"#111\", textTransform: \"uppercase\", lineHeight: 1.05, letterSpacing: \"0.01em\", margin: \"0 0 20px 0\" }}>{EVENTS[activeIndex].title}</h2>
-              <p style={{ fontFamily: \"var(--font-bricolage)\", fontSize: \"16px\", color: \"#555\", lineHeight: 1.6, margin: \"0 0 32px 0\" }}>{EVENTS[activeIndex].description}</p>
+          <AnimatePresence mode="wait">
+            <motion.div key={EVENTS[activeIndex].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+              <h2 style={{ fontFamily: "var(--font-anton)", fontSize: "32px", color: "#111", textTransform: "uppercase", lineHeight: 1.05, letterSpacing: "0.01em", margin: "0 0 20px 0" }}>{EVENTS[activeIndex].title}</h2>
+              <p style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#555", lineHeight: 1.6, margin: "0 0 32px 0" }}>{EVENTS[activeIndex].description}</p>
               <Divider mb={24} />
               <div style={{ marginBottom: 24 }}>
-                <div style={{ fontFamily: \"var(--font-bricolage)\", fontSize: \"16px\", color: \"#9C8981\", marginBottom: 5 }}>Date and Time</div>
-                <div style={{ fontFamily: \"var(--font-anton)\", fontSize: \"17px\", color: \"#111\", textTransform: \"uppercase\", letterSpacing: \"0.04em\" }}>{EVENTS[activeIndex].date}</div>
+                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Date and Time</div>
+                <div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em" }}>{EVENTS[activeIndex].date}</div>
               </div>
               <div style={{ marginBottom: 24 }}>
-                <div style={{ fontFamily: \"var(--font-bricolage)\", fontSize: \"16px\", color: \"#9C8981\", marginBottom: 5 }}>Venue</div>
-                <div style={{ fontFamily: \"var(--font-anton)\", fontSize: \"17px\", color: \"#111\", textTransform: \"uppercase\", letterSpacing: \"0.03em\", lineHeight: 1.35 }}>{EVENTS[activeIndex].venue}</div>
+                <div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Venue</div>
+                <div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: \"uppercase\", letterSpacing: \"0.03em\", lineHeight: 1.35 }}>{EVENTS[activeIndex].venue}</div>
               </div>
               <Divider mb={24} />
               <div style={{ marginBottom: 24 }}>
@@ -460,6 +460,8 @@ export default function IdentityEventsSequence() {
         </motion.div>
       </div>
     </section>
-`;
+  );
+}
+\`;
 
 fs.writeFileSync(path.join(__dirname, 'src/components/sections/IdentityEventsSequence.tsx'), content, 'utf8');

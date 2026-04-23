@@ -157,12 +157,12 @@ export default function IdentityEventsSequence() {
 
   const labelTop = useTransform(scrollYProgress, (p) => {
     const t = norm(p, collapseStart, collapseEnd);
-    return `calc(85vh + (89px - 85vh) * ${t})`;
+    return \`calc(85vh + (89px - 85vh) * ${t})\`;
   });
 
   const labelLeft = useTransform(scrollYProgress, (p) => {
     const t = norm(p, collapseStart, collapseEnd);
-    return `calc(50% + ((72vw + 40px) - 50%) * ${t})`;
+    return \`calc(50% + ((72vw + 40px) - 50%) * ${t})\`;
   });
 
   const labelTransX = useTransform(scrollYProgress, (p) => {
@@ -180,7 +180,7 @@ export default function IdentityEventsSequence() {
     const r = Math.round(255 + (156 - 255) * t);
     const g = Math.round(255 + (137 - 255) * t);
     const b = Math.round(255 + (129 - 255) * t);
-    return `rgb(${r},${g},${b})`;
+    return \`rgb(${r},${g},${b})\`;
   });
 
   const labelLetterSpacing = useTransform(scrollYProgress, (p) => {
@@ -266,7 +266,7 @@ export default function IdentityEventsSequence() {
             left: 0, 
             width: isMobile ? "auto" : "100vw", 
             height: isMobile ? "100%" : "auto", 
-            objectFit: isMobile ? "contain" : "cover",
+            objectFit: "contain",
             objectPosition: "left bottom",
             minWidth: isMobile ? "600px" : "none"
           }} 
@@ -450,10 +450,12 @@ export default function IdentityEventsSequence() {
               </div>
               <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>
                 <button style={{ flex: 1, height: 48, border: "2px solid #111", backgroundColor: "transparent", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#111", textTransform: "uppercase", letterSpacing: "0.1em", cursor: "pointer", transition: "background 0.2s, color 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#111"; e.currentTarget.style.color = "#fff"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#111"; }}>MORE DETAILS</button>
-                <button style={{ flex: 1, height: 52, border: "none", backgroundColor: "#EF4826", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em", cursor: "pointer", transition: "background 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#d03a1a")} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#EF4826")}>ATTEND EVENT</button>
+                <button style={{ flex: 1, height: 52, border: "none", backgroundColor: "#EF4826", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em", cursor: \"pointer\", transition: \"background 0.2s\" }} onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = \"#d03a1a\")} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = \"#EF4826\")}>ATTEND EVENT</button>
               </div>
             </motion.div>
           </AnimatePresence>
         </motion.div>
       </div>
     </section>
+  );
+}
