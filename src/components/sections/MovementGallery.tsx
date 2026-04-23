@@ -78,7 +78,141 @@ const FACES = [
   },
 ];
 
-export default function MovementGallery() {
+// -- Mobile Sub-components --------------------------------------------------
+
+function MobileIntroFrame() {
+  return (
+    <div style={{ 
+      width: "100vw", 
+      height: "100%", 
+      flexShrink: 0, 
+      display: "flex", 
+      flexDirection: "column", 
+      justifyContent: "center",
+      padding: "0 24px",
+      backgroundColor: "#131111",
+      position: "relative"
+    }}>
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+        width: "100%"
+      }}>
+        <div style={{
+          alignSelf: "flex-end",
+          fontFamily: "var(--font-anton), Anton, sans-serif",
+          fontSize: "42px",
+          lineHeight: "1",
+          color: "white",
+          textTransform: "uppercase",
+          textAlign: "right",
+          maxWidth: "90%"
+        }}>
+          WE MOVE <span style={{ color: "#EF4826" }}>SIDEWAYS,</span>
+        </div>
+        <div style={{
+          alignSelf: "flex-start",
+          fontFamily: "var(--font-anton), Anton, sans-serif",
+          fontSize: "42px",
+          lineHeight: "1",
+          color: "white",
+          textTransform: "uppercase",
+          textAlign: "left",
+          maxWidth: "90%"
+        }}>
+          BUT NEVER <span style={{ color: "#EF4826" }}>WITHOUT CONTROL.</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
+  const isTop = index % 2 === 0; // Staggered: 0 (Jay) = Top, 1 (Auto) = Bottom, 2 (Awal) = Top...
+  
+  return (
+    <div style={{
+      width: "85vw",
+      height: "100%",
+      flexShrink: 0,
+      display: "flex",
+      flexDirection: "column",
+      padding: "0 24px",
+      justifyContent: isTop ? "flex-start" : "flex-end",
+      paddingTop: isTop ? "140px" : "0",
+      paddingBottom: isTop ? "0" : "100px"
+    }}>
+      {isTop ? (
+        <>
+          <div style={{ marginBottom: "32px" }}>
+            <h3 style={{ 
+              fontFamily: "var(--font-anton), Anton, sans-serif",
+              fontSize: "36px",
+              color: "white",
+              textTransform: "uppercase",
+              marginBottom: "12px",
+              lineHeight: "1"
+            }}>
+              {face.name}
+            </h3>
+            <p style={{ 
+              fontFamily: "var(--font-bricolage), sans-serif",
+              fontSize: "15px",
+              color: "rgba(255,255,255,0.8)",
+              lineHeight: "1.5",
+              maxWidth: "280px"
+            }}>
+              {face.desc}
+            </p>
+          </div>
+          <div style={{ 
+            width: "100%", 
+            height: "55vh", 
+            overflow: "hidden"
+          }}>
+            <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+        </>
+      ) : (
+        <>
+          <div style={{ 
+            width: "100%", 
+            height: "55vh", 
+            overflow: "hidden",
+            marginBottom: "32px"
+          }}>
+            <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+          <div>
+            <h3 style={{ 
+              fontFamily: "var(--font-anton), Anton, sans-serif",
+              fontSize: "36px",
+              color: "white",
+              textTransform: "uppercase",
+              marginBottom: "12px",
+              lineHeight: "1"
+            }}>
+              {face.name}
+            </h3>
+            <p style={{ 
+              fontFamily: "var(--font-bricolage), sans-serif",
+              fontSize: "15px",
+              color: "rgba(255,255,255,0.8)",
+              lineHeight: "1.5",
+              maxWidth: "280px"
+            }}>
+              {face.desc}
+            </p>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// -- Desktop View Component -------------------------------------------------
+function DesktopView() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollRange, setScrollRange] = useState(0);
@@ -89,7 +223,6 @@ export default function MovementGallery() {
         setScrollRange(scrollRef.current.scrollWidth - window.innerWidth);
       }
     };
-
     calculateRange();
     window.addEventListener("resize", calculateRange);
     return () => window.removeEventListener("resize", calculateRange);
@@ -100,221 +233,60 @@ export default function MovementGallery() {
     offset: ["start start", "end end"],
   });
 
-  // Precise lateral movement: Revealing the strip until exactly 40px padding remains
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
 
   return (
     <section 
       ref={containerRef} 
       data-chrome-theme="light"
-      style={{ 
-        height: "600vh", 
-        backgroundColor: "#131111", 
-        position: "relative" 
-      }}
+      style={{ height: "600vh", backgroundColor: "#131111", position: "relative" }}
     >
-      <div style={{ 
-        position: "sticky", 
-        top: 0, 
-        height: "100vh", 
-        overflow: "hidden", 
-        display: "flex", 
-      }}>
-        
-        <motion.div 
-          ref={scrollRef}
-          style={{ display: "flex", x, height: "100%", alignItems: "stretch" }}
-        >
-          
-          {/* 1. THE INTRO FRAME (Poster Stage) */}
-          <div style={{ 
-            width: "100vw", 
-            height: "100%", 
-            flexShrink: 0, 
-            position: "relative",
-          }}>
-            {/* STAGGERED HEADLINE */}
-            <div style={{ 
-              position: "absolute", 
-              top: "42vh", 
-              left: "420px",
-              whiteSpace: "nowrap",
-              fontFamily: "var(--font-anton), Anton, sans-serif",
-              fontSize: "56px",
-              lineHeight: "0.9",
-              letterSpacing: "-0.02em",
-              textTransform: "uppercase",
-              zIndex: 10,
-            }}>
+      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex" }}>
+        <motion.div ref={scrollRef} style={{ display: "flex", x, height: "100%", alignItems: "stretch" }}>
+          <div style={{ width: "100vw", height: "100%", flexShrink: 0, position: "relative" }}>
+            <div style={{ position: "absolute", top: "42vh", left: "420px", whiteSpace: "nowrap", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "56px", lineHeight: "0.9", letterSpacing: "-0.02em", textTransform: "uppercase", zIndex: 10 }}>
               <span style={{ color: "white" }}>WE MOVE </span>
               <span style={{ color: "#EF4826" }}>SIDEWAYS,</span>
             </div>
-
-            <div style={{ 
-              position: "absolute", 
-              top: "52vh", 
-              left: "40px",
-              whiteSpace: "nowrap",
-              fontFamily: "var(--font-anton), Anton, sans-serif",
-              fontSize: "56px",
-              lineHeight: "0.9",
-              letterSpacing: "-0.02em",
-              textTransform: "uppercase",
-              zIndex: 10,
-            }}>
+            <div style={{ position: "absolute", top: "52vh", left: "40px", whiteSpace: "nowrap", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "56px", lineHeight: "0.9", letterSpacing: "-0.02em", textTransform: "uppercase", zIndex: 10 }}>
               <span style={{ color: "white" }}>BUT NEVER </span>
               <span style={{ color: "#EF4826" }}>WITHOUT CONTROL.</span>
             </div>
-
-            {/* JAY BASH - NESTED TOP CARD (150px Offset, 42px Indent) */}
-            <div style={{ 
-              position: "absolute", 
-              top: "150px", 
-              right: "40px", 
-              width: "440px",
-              zIndex: 5,
-            }}>
+            <div style={{ position: "absolute", top: "150px", right: "40px", width: "440px", zIndex: 5 }}>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                {/* Text Group: Flush Left */}
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                  <h3 style={{ 
-                    fontFamily: "var(--font-anton), Anton, sans-serif",
-                    fontSize: "42px",
-                    color: "white",
-                    textTransform: "uppercase",
-                    marginBottom: "16px",
-                    lineHeight: "1"
-                  }}>
-                    {FACES[0].name}
-                  </h3>
-                  <p style={{ 
-                    fontFamily: "var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    fontSize: "15px",
-                    color: "rgba(255,255,255,0.9)",
-                    lineHeight: "1.5",
-                    maxWidth: "320px",
-                  }}>
-                    {FACES[0].desc}
-                  </p>
+                  <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "42px", color: "white", textTransform: "uppercase", marginBottom: "16px", lineHeight: "1" }}>{FACES[0].name}</h3>
+                  <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "15px", color: "rgba(255,255,255,0.9)", lineHeight: "1.5", maxWidth: "320px" }}>{FACES[0].desc}</p>
                 </div>
-
-                {/* Image Group: Indented 42px */}
-                <div style={{ 
-                  marginTop: "42px", 
-                  marginLeft: "42px", 
-                  width: "calc(100% - 42px)", 
-                  height: "600px", 
-                  overflow: "hidden" 
-                }}>
-                  <img 
-                    src={FACES[0].img} 
-                    alt={FACES[0].name} 
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
+                <div style={{ marginTop: "42px", marginLeft: "42px", width: "calc(100% - 42px)", height: "600px", overflow: "hidden" }}>
+                  <img src={FACES[0].img} alt={FACES[0].name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
               </div>
             </div>
           </div>
-
-          {/* 2. THE EDITORIAL GALLERY RAIL */}
-          <div style={{ 
-            display: "flex", 
-            alignItems: "stretch", 
-            gap: "12vw", 
-            paddingLeft: "8vw", 
-            paddingRight: "40px" // Tight ending padding
-          }}>
+          <div style={{ display: "flex", alignItems: "stretch", gap: "12vw", paddingLeft: "8vw", paddingRight: "40px" }}>
             {FACES.slice(1).map((face) => {
               const isTop = face.family === "top";
-              
               return (
-                <div 
-                  key={face.id}
-                  style={{ 
-                    width: face.width,
-                    flexShrink: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    alignItems: "flex-start",
-                  }}
-                >
+                <div key={face.id} style={{ width: face.width, flexShrink: 0, display: "flex", flexDirection: "column", height: "100%", alignItems: "flex-start" }}>
                   {isTop ? (
-                    /* TOP CARD TEMPLATE: 150px Offset, Indented Image */
                     <div style={{ paddingTop: "150px", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                      {/* Text Group: Flush Left */}
                       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                        <h3 style={{ 
-                          fontFamily: "var(--font-anton), Anton, sans-serif", 
-                          fontSize: "42px", 
-                          color: "white", 
-                          textTransform: "uppercase",
-                          marginBottom: "16px",
-                          lineHeight: "1"
-                        }}>
-                          {face.name}
-                        </h3>
-                        <p style={{ 
-                          fontFamily: "var(--font-bricolage), 'Bricolage Grotesque', sans-serif", 
-                          fontSize: "15px", 
-                          color: "rgba(255,255,255,0.8)", 
-                          lineHeight: "1.5",
-                          maxWidth: "320px"
-                        }}>
-                          {face.desc}
-                        </p>
+                        <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "42px", color: "white", textTransform: "uppercase", marginBottom: "16px", lineHeight: "1" }}>{face.name}</h3>
+                        <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "15px", color: "rgba(255,255,255,0.8)", lineHeight: "1.5", maxWidth: "320px" }}>{face.desc}</p>
                       </div>
-                      {/* Image Group: Indented 42px */}
-                      <div style={{ 
-                        marginTop: "42px", 
-                        marginLeft: "42px", 
-                        width: "calc(100% - 42px)", 
-                        height: face.height, 
-                        overflow: "hidden" 
-                      }}>
+                      <div style={{ marginTop: "42px", marginLeft: "42px", width: "calc(100% - 42px)", height: face.height, overflow: "hidden" }}>
                         <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       </div>
                     </div>
                   ) : (
-                    /* BOTTOM CARD TEMPLATE: 80px Offset, Indented Image first */
-                    <div style={{ 
-                      marginTop: "auto", 
-                      paddingBottom: "80px", 
-                      display: "flex", 
-                      flexDirection: "column", 
-                      alignItems: "flex-start" 
-                    }}>
-                      {/* Image Group: Indented 42px */}
-                      <div style={{ 
-                        marginLeft: "42px", 
-                        width: "calc(100% - 42px)", 
-                        height: face.height, 
-                        overflow: "hidden", 
-                        marginBottom: "42px" 
-                      }}>
+                    <div style={{ marginTop: "auto", paddingBottom: "80px", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                      <div style={{ marginLeft: "42px", width: "calc(100% - 42px)", height: face.height, overflow: "hidden", marginBottom: "42px" }}>
                         <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       </div>
-                      {/* Text Group: Flush Left */}
                       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                        <h3 style={{ 
-                          fontFamily: "var(--font-anton), Anton, sans-serif", 
-                          fontSize: "42px", 
-                          color: "white", 
-                          textTransform: "uppercase",
-                          marginBottom: "16px",
-                          lineHeight: "1"
-                        }}>
-                          {face.name}
-                        </h3>
-                        <p style={{ 
-                          fontFamily: "var(--font-bricolage), 'Bricolage Grotesque', sans-serif", 
-                          fontSize: "15px", 
-                          color: "rgba(255,255,255,0.8)", 
-                          lineHeight: "1.5",
-                          maxWidth: "300px"
-                        }}>
-                          {face.desc}
-                        </p>
+                        <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "42px", color: "white", textTransform: "uppercase", marginBottom: "16px", lineHeight: "1" }}>{face.name}</h3>
+                        <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "15px", color: "rgba(255,255,255,0.8)", lineHeight: "1.5", maxWidth: "300px" }}>{face.desc}</p>
                       </div>
                     </div>
                   )}
@@ -322,9 +294,79 @@ export default function MovementGallery() {
               );
             })}
           </div>
-
         </motion.div>
       </div>
     </section>
   );
+}
+
+// -- Mobile View Component --------------------------------------------------
+function MobileView() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrollRange, setScrollRange] = useState(0);
+
+  useEffect(() => {
+    const calculateRange = () => {
+      if (scrollRef.current) {
+        setScrollRange(scrollRef.current.scrollWidth - window.innerWidth);
+      }
+    };
+    calculateRange();
+    window.addEventListener("resize", calculateRange);
+    return () => window.removeEventListener("resize", calculateRange);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
+
+  return (
+    <section 
+      ref={containerRef} 
+      data-chrome-theme="light"
+      style={{ height: "600vh", backgroundColor: "#131111", position: "relative" }}
+    >
+      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex" }}>
+        <motion.div 
+          ref={scrollRef} 
+          style={{ 
+            display: "flex", 
+            x, 
+            height: "100%", 
+            alignItems: "stretch",
+            gap: "24px" // Intentional spacing between cards
+          }}
+        >
+          <MobileIntroFrame />
+          {FACES.map((face, index) => (
+            <MobileCard key={face.id} face={face} index={index} />
+          ))}
+          {/* Buffer space at the end */}
+          <div style={{ width: "24px", flexShrink: 0 }} />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// -- Main Component ---------------------------------------------------------
+export default function MovementGallery() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (!mounted) return null;
+
+  return isMobile ? <MobileView /> : <DesktopView />;
 }
