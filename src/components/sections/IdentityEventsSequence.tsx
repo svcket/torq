@@ -232,7 +232,7 @@ export default function IdentityEventsSequence() {
         textTransform: "uppercase",
         marginBottom: "14px",
         letterSpacing: "0.01em",
-        maxWidth: "300px"
+        width: "100%"
       }}>
         BUILT FOR THE CULTURE IN MOTION, TOR'Q BRINGS TOGETHER EVENTS, COMMUNITY
         VOICES, AND STORIES FROM THE PEOPLE SHAPING THE SCENE IN REAL TIME.
@@ -244,7 +244,7 @@ export default function IdentityEventsSequence() {
         color: "#111",
         textTransform: "uppercase",
         letterSpacing: "0.01em",
-        maxWidth: "300px",
+        width: "100%",
         marginBottom: "48px"
       }}>
         FROM ASPHALT TO WATER, FROM ENGINES TO ATMOSPHERE, WE FOLLOW THE ENERGY,
@@ -265,7 +265,7 @@ export default function IdentityEventsSequence() {
       <div style={{
         width: "calc(100% + 32px)",
         margin: "0 -16px",
-        padding: "0 16px",
+        padding: "0 0 0 0",
         overflowX: "auto",
         display: "flex",
         alignItems: "flex-end",
@@ -276,7 +276,7 @@ export default function IdentityEventsSequence() {
         <img 
           src="/torqassets/vehicles/vehicles for split section.png" 
           alt="Vehicles strip" 
-          style={{ height: "100%", width: "auto", objectFit: "contain", minWidth: "600px" }}
+          style={{ height: "100%", width: "auto", objectFit: "contain", minWidth: "600px", objectPosition: "left bottom" }}
         />
       </div>
     </div>
