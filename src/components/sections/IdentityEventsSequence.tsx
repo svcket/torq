@@ -34,7 +34,7 @@ const EVENTS: EventData[] = [
     description: "A high-intensity motocross showcase where speed meets lift, and every jump cuts through mud, noise, and crowd pressure.",
     date: "SAT. 15 MAY, 2026 | 14:30",
     venue: "TOR'Q ARENA (MUTANDA), GWARIMPA, ABUJA",
-    highlights: ["MOTOCROSS SHOW RUNS", "ELEVATED JUMP SEQUENCES", "TRACKSIDE VIP ACCESS"],
+    highlights: ["MOTOCROSS SHOW RUNS", "ELEVUMP SEQUENCES", "TRACKSIDE VIP ACCESS"],
     lineups: ["JAY BASH", "CAPTAIN AWAL", "AUTO CRAFT"],
     mediaUrl: "/torqassets/events/event image 2.jpg",
     mediaType: "image",
@@ -148,11 +148,6 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
           <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ width: "clamp(180px, 30vw, 320px)", height: "auto" }} />
         </div>
 
-        {/* 
-            VEHICLES OVERLAY: 
-            Pinned to the absolute bottom of the identity frame.
-            The identity frame is 100vh on mobile.
-        */}
         <div style={{
           position: "absolute",
           bottom: "20px",
@@ -351,8 +346,7 @@ function MobileView() {
       */}
       <div style={{ backgroundColor: "#FFFFFF", padding: "20px 0 40px 0" }}>
         {/* 
-            Rule 2: Exactly 40px space between the heading and the first event card.
-            Setting marginBottom: 40px on this wrapper enforces this constraint.
+            Rule 2: Exactly 40px space between the heading and the events content area (first card image).
         */}
         <div style={{ 
           padding: "0 clamp(16px, 4vw, 40px)", 
@@ -372,14 +366,17 @@ function MobileView() {
           </h2>
         </div>
         
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(40px, 6vh, 80px)" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(64px, 10vh, 96px)" }}>
           {EVENTS.map((event) => (
             <div key={event.id} style={{ paddingBottom: "clamp(24px, 4vh, 48px)" }}>
-              {/* Refined responsive image height (strictly non-desktop) */}
+              {/* 
+                  Rule 3: Exactly 40px spacing within the event content structure 
+                  where card/content blocks separate (Image -> Info area).
+              */}
               <div style={{ 
                 width: "100%", 
                 height: "clamp(220px, 32vh, 456px)", 
-                marginBottom: "clamp(20px, 3vh, 32px)", 
+                marginBottom: "40px", // ENFORCED: Exactly 40px internal separation
                 overflow: "hidden" 
               }}>
                 <img src={event.mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
