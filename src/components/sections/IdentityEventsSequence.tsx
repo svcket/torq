@@ -104,61 +104,66 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
       <div style={{ 
         display: "flex", 
         flexDirection: "column", 
-        gap: "clamp(32px, 6vh, 64px)", // Tightened slogan gap
         width: "100%", 
         padding: "0 clamp(16px, 4vw, 40px)",
         maxWidth: "800px",
         margin: "0 auto",
-        height: "100%",
-        justifyContent: "flex-start",
-        paddingTop: "20px"
+        position: "relative"
       }}>
         <div style={{
-          fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(18px, 3.5vw, 28px)", // Slightly smaller to fit layout better
-          lineHeight: 1.15,
-          color: "#111",
-          textTransform: "uppercase",
-          letterSpacing: "0.01em",
-          maxWidth: "95%",
-          fontWeight: "bold"
+          display: "flex",
+          flexDirection: "column",
+          gap: "clamp(24px, 4vh, 48px)",
+          marginBottom: "clamp(32px, 6vh, 64px)"
         }}>
-          BUILT FOR THE CULTURE IN MOTION, TOR'Q BRINGS TOGETHER EVENTS, COMMUNITY
-          VOICES, AND STORIES FROM THE PEOPLE SHAPING THE SCENE IN REAL TIME.
+          <div style={{
+            fontFamily: "var(--font-anton), Anton, sans-serif",
+            fontSize: "clamp(18px, 3.5vw, 28px)",
+            lineHeight: 1.15,
+            color: "#111",
+            textTransform: "uppercase",
+            letterSpacing: "0.01em",
+            maxWidth: "95%",
+            fontWeight: "bold"
+          }}>
+            BUILT FOR THE CULTURE IN MOTION, TOR'Q BRINGS TOGETHER EVENTS, COMMUNITY
+            VOICES, AND STORIES FROM THE PEOPLE SHAPING THE SCENE IN REAL TIME.
+          </div>
+          
+          <div style={{
+            alignSelf: "flex-end",
+            fontFamily: "var(--font-anton), Anton, sans-serif",
+            fontSize: "clamp(18px, 3.5vw, 28px)",
+            lineHeight: 1.15,
+            color: "#111",
+            textTransform: "uppercase",
+            letterSpacing: "0.01em",
+            maxWidth: "90%",
+            textAlign: "left",
+            fontWeight: "bold"
+          }}>
+            FROM ASPHALT TO WATER, FROM ENGINES TO ATMOSPHERE, WE FOLLOW THE ENERGY,
+            RITUALS, AND PEOPLE THAT GIVE EVERY COMMUNITY ITS IDENTITY.
+          </div>
         </div>
         
-        <div style={{
-          alignSelf: "flex-end",
-          fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(18px, 3.5vw, 28px)",
-          lineHeight: 1.15,
-          color: "#111",
-          textTransform: "uppercase",
-          letterSpacing: "0.01em",
-          maxWidth: "90%",
-          textAlign: "left",
-          fontWeight: "bold"
-        }}>
-          FROM ASPHALT TO WATER, FROM ENGINES TO ATMOSPHERE, WE FOLLOW THE ENERGY,
-          RITUALS, AND PEOPLE THAT GIVE EVERY COMMUNITY ITS IDENTITY.
-        </div>
-        
-        {/* REFINED LOGO POSITION: Pushed down to sit in the intended middle area */}
         <div style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "clamp(40px, 10vh, 120px)" 
+          marginBottom: "clamp(40px, 8vh, 80px)"
         }}>
           <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ width: "clamp(180px, 35vw, 360px)", height: "auto" }} />
         </div>
 
-        {/* REFINED VEHICLES SCALE: Scaled upward to reach the intended line */}
+        {/* 
+            REFINED VEHICLES: 
+            Removed absolute positioning to allow it to flow naturally 
+            before the Upcoming Events section.
+        */}
         <div style={{
-          position: "absolute",
-          bottom: "0",
-          left: "-10%",
           width: "120%",
-          height: "clamp(180px, 32vh, 320px)", // Increased height to scale upward
+          marginLeft: "-10%",
+          height: "clamp(180px, 28vh, 320px)",
           pointerEvents: "none",
           display: "flex",
           alignItems: "flex-end",
@@ -340,19 +345,23 @@ function DesktopView() {
 function MobileView() {
   return (
     <section data-chrome-theme="dark" aria-label="TORQ Identity & Upcoming Events Sequence" style={{ backgroundColor: "#FFE7E3", position: "relative" }}>
-      <div style={{ height: "100vh", display: "flex", flexDirection: "column", padding: "120px 0 0 0", position: "relative", overflow: "hidden" }}>
+      {/* 
+          REFINED MOBILE IDENTITY: 
+          Removed height: 100vh to allow the section to grow naturally with its content.
+          This ensures Upcoming Events follows strictly 40px after the vehicles.
+      */}
+      <div style={{ display: "flex", flexDirection: "column", padding: "120px 0 0 0", position: "relative" }}>
         <IdentityContent isMobile={true} />
       </div>
-      {/* 
-          REFINED POSITIONING: 
-          Applied strictly requested 40px spacing before and after the "UPCOMING EVENTS" title.
-      */}
+      
+      {/* UPCOMING EVENTS SECTION */}
       <div style={{ backgroundColor: "#FFFFFF", padding: "40px 0 0 0" }}>
         {/* 40px spacing before the title */}
         <div style={{ padding: "0 clamp(16px, 4vw, 40px)", marginBottom: "40px", maxWidth: "1200px", margin: "0 auto" }}>
           <h2 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "clamp(36px, 6vw, 56px)", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1 }}>UPCOMING EVENTS</h2>
         </div>
-        {/* 40px spacing after the title before the list */}
+        
+        {/* 40px spacing after the title before the first event card */}
         <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(40px, 6vh, 80px)" }}>
           {EVENTS.map((event) => (
             <div key={event.id} style={{ paddingBottom: "clamp(24px, 4vh, 48px)" }}>
