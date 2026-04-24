@@ -104,16 +104,19 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
       <div style={{ 
         display: "flex", 
         flexDirection: "column", 
-        gap: "clamp(48px, 8vh, 80px)", 
+        gap: "clamp(32px, 6vh, 64px)", // Tightened slogan gap
         width: "100%", 
         padding: "0 clamp(16px, 4vw, 40px)",
         maxWidth: "800px",
-        margin: "0 auto"
+        margin: "0 auto",
+        height: "100%",
+        justifyContent: "flex-start",
+        paddingTop: "20px"
       }}>
         <div style={{
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(20px, 4vw, 32px)",
-          lineHeight: 1.1,
+          fontSize: "clamp(18px, 3.5vw, 28px)", // Slightly smaller to fit layout better
+          lineHeight: 1.15,
           color: "#111",
           textTransform: "uppercase",
           letterSpacing: "0.01em",
@@ -127,8 +130,8 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
         <div style={{
           alignSelf: "flex-end",
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(20px, 4vw, 32px)",
-          lineHeight: 1.1,
+          fontSize: "clamp(18px, 3.5vw, 28px)",
+          lineHeight: 1.15,
           color: "#111",
           textTransform: "uppercase",
           letterSpacing: "0.01em",
@@ -140,20 +143,22 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
           RITUALS, AND PEOPLE THAT GIVE EVERY COMMUNITY ITS IDENTITY.
         </div>
         
+        {/* REFINED LOGO POSITION: Pushed down to sit in the intended middle area */}
         <div style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "20px"
+          marginTop: "clamp(40px, 10vh, 120px)" 
         }}>
-          <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ width: "clamp(180px, 30vw, 320px)", height: "auto" }} />
+          <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ width: "clamp(180px, 35vw, 360px)", height: "auto" }} />
         </div>
 
+        {/* REFINED VEHICLES SCALE: Scaled upward to reach the intended line */}
         <div style={{
           position: "absolute",
-          bottom: "20px",
+          bottom: "0",
           left: "-10%",
           width: "120%",
-          height: "clamp(140px, 25vh, 220px)",
+          height: "clamp(180px, 32vh, 320px)", // Increased height to scale upward
           pointerEvents: "none",
           display: "flex",
           alignItems: "flex-end",
@@ -340,22 +345,20 @@ function MobileView() {
       </div>
       {/* 
           REFINED POSITIONING: 
-          Removed the large top padding (clamp(48px, 10vh, 96px)) to pull "UPCOMING EVENTS" 
-          to the correct position marking the end of the Identity section.
+          Applied strictly requested 40px spacing before and after the "UPCOMING EVENTS" title.
       */}
-      <div style={{ backgroundColor: "#FFFFFF", padding: "0 0 40px 0" }}>
-        {/* Title padding refine: 40px fixed margin to first card as requested */}
-        <div style={{ padding: "clamp(24px, 5vh, 40px) clamp(16px, 4vw, 40px) 0 clamp(16px, 4vw, 40px)", marginBottom: "40px", maxWidth: "1200px", margin: "0 auto" }}>
+      <div style={{ backgroundColor: "#FFFFFF", padding: "40px 0 0 0" }}>
+        {/* 40px spacing before the title */}
+        <div style={{ padding: "0 clamp(16px, 4vw, 40px)", marginBottom: "40px", maxWidth: "1200px", margin: "0 auto" }}>
           <h2 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "clamp(36px, 6vw, 56px)", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1 }}>UPCOMING EVENTS</h2>
         </div>
-        {/* Reduced gap and removed dividers to clean up mobile rhythm */}
+        {/* 40px spacing after the title before the list */}
         <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(40px, 6vh, 80px)" }}>
           {EVENTS.map((event) => (
             <div key={event.id} style={{ paddingBottom: "clamp(24px, 4vh, 48px)" }}>
-              {/* Refined responsive image height: Increased by additional 16px for tablet */}
               <div style={{ 
                 width: "100%", 
-                height: "clamp(220px, 32vh, 456px)", // Max increased to 456px (prev 440 + 16)
+                height: "clamp(220px, 32vh, 456px)", 
                 marginBottom: "clamp(20px, 3vh, 32px)", 
                 overflow: "hidden" 
               }}>
