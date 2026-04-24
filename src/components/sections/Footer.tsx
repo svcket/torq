@@ -1,4 +1,6 @@
-// Font usage refactored to use global CSS variables
+"use client";
+
+import React, { useState, useEffect } from "react";
 
 const NAV_LINKS_ROW_1 = [
   "ABOUT", "EVENTS", "MERCH", "GALLERY", "STORIES", "PARTNERSHIP"
@@ -34,28 +36,45 @@ const SocialIcon = ({ type }: { type: "instagram" | "threads" | "x" }) => {
 };
 
 export default function Footer() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <footer 
       style={{ 
-        height: "100vh", 
+        height: isMobile ? "auto" : "100vh", 
+        minHeight: isMobile ? "80vh" : "100vh",
         backgroundColor: "#131111", 
         position: "relative", 
         overflow: "hidden",
-        width: "100%"
+        width: "100%",
+        paddingBottom: isMobile ? "40px" : "0"
       }}
     >
       {/* 1. Main Heading */}
       <div 
         style={{ 
-          paddingTop: "128px", 
+          paddingTop: isMobile ? "80px" : "128px", 
           textAlign: "center", 
           position: "relative", 
-          zIndex: 10 
+          zIndex: 10,
+          paddingLeft: "var(--torq-margin)",
+          paddingRight: "var(--torq-margin)"
         }}
       >
         <h2 style={{ 
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "48px",
+          fontSize: isMobile ? "clamp(32px, 6vw, 48px)" : "48px",
           fontWeight: 400,
           lineHeight: "1.1",
           textTransform: "uppercase",
@@ -66,16 +85,26 @@ export default function Footer() {
         </h2>
 
         {/* 2. Navigation Links */}
-        <div style={{ marginTop: "40px", display: "flex", flexDirection: "column", gap: "24px" }}>
-          {/* Row 1 */}
-          <div style={{ display: "flex", justifyContent: "center", gap: "48px" }}>
+        <div style={{ 
+          marginTop: isMobile ? "48px" : "40px", 
+          display: "flex", 
+          flexDirection: "column", 
+          gap: isMobile ? "16px" : "24px" 
+        }}>
+          {/* Row 1 / Stack 1 */}
+          <div style={{ 
+            display: "flex", 
+            justifyContent: "center", 
+            gap: isMobile ? "clamp(12px, 3vw, 24px)" : "48px",
+            flexWrap: isMobile ? "wrap" : "nowrap"
+          }}>
             {NAV_LINKS_ROW_1.map((link) => (
               <a 
                 key={link} 
                 href="#" 
                 style={{ 
                   fontFamily: "var(--font-anton), Anton, sans-serif",
-                  fontSize: "18px",
+                  fontSize: isMobile ? "14px" : "18px",
                   color: "rgba(255, 255, 255, 0.9)",
                   textDecoration: "none",
                   letterSpacing: "0.05em",
@@ -86,15 +115,20 @@ export default function Footer() {
               </a>
             ))}
           </div>
-          {/* Row 2 */}
-          <div style={{ display: "flex", justifyContent: "center", gap: "48px" }}>
+          {/* Row 2 / Stack 2 */}
+          <div style={{ 
+            display: "flex", 
+            justifyContent: "center", 
+            gap: isMobile ? "clamp(12px, 3vw, 24px)" : "48px",
+            flexWrap: isMobile ? "wrap" : "nowrap"
+          }}>
             {NAV_LINKS_ROW_2.map((link) => (
               <a 
                 key={link} 
                 href="#" 
                 style={{ 
                   fontFamily: "var(--font-anton), Anton, sans-serif",
-                  fontSize: "18px",
+                  fontSize: isMobile ? "14px" : "18px",
                   color: "rgba(255, 255, 255, 0.9)",
                   textDecoration: "none",
                   letterSpacing: "0.05em",
@@ -108,7 +142,7 @@ export default function Footer() {
         </div>
 
         {/* 3. Social Icons */}
-        <div style={{ marginTop: "48px", display: "flex", justifyContent: "center", gap: "24px", color: "rgba(255, 255, 255, 0.7)" }}>
+        <div style={{ marginTop: isMobile ? "40px" : "48px", display: "flex", justifyContent: "center", gap: "24px", color: "rgba(255, 255, 255, 0.7)" }}>
           <a href="#" style={{ color: "inherit" }} aria-label="Instagram"><SocialIcon type="instagram" /></a>
           <a href="#" style={{ color: "inherit" }} aria-label="Threads"><SocialIcon type="threads" /></a>
           <a href="#" style={{ color: "inherit" }} aria-label="X"><SocialIcon type="x" /></a>
@@ -117,9 +151,9 @@ export default function Footer() {
         {/* 4. Copyright */}
         <div 
           style={{ 
-            marginTop: "32px", 
+            marginTop: isMobile ? "40px" : "32px", 
             fontFamily: "var(--font-anton), Anton, sans-serif",
-            fontSize: "16px",
+            fontSize: isMobile ? "12px" : "16px",
             color: "rgba(255, 255, 255, 0.6)",
             textTransform: "uppercase",
             letterSpacing: "0.1em",
@@ -133,12 +167,13 @@ export default function Footer() {
       {/* 5. Illustrations / Drawings (Unified Sketch Block) */}
       <div 
         style={{ 
-          position: "absolute", 
-          inset: 0, 
+          position: isMobile ? "relative" : "absolute", 
+          inset: isMobile ? "auto" : 0, 
           pointerEvents: "none", 
           zIndex: 1,
           display: "flex",
-          alignItems: "flex-end"
+          alignItems: "flex-end",
+          marginTop: isMobile ? "40px" : "0"
         }}
       >
         <img 
@@ -147,10 +182,10 @@ export default function Footer() {
           style={{ 
             width: "100%", 
             height: "auto",
-            maxHeight: "85vh",
+            maxHeight: isMobile ? "40vh" : "85vh",
             objectFit: "contain",
             opacity: 1,
-            marginBottom: "-20px" // Slight bleed off frame
+            marginBottom: isMobile ? "0" : "-20px"
           }} 
         />
       </div>

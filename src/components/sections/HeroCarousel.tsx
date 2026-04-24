@@ -54,16 +54,18 @@ export default function HeroCarousel() {
           position: "absolute",
           left: 0,
           right: 0,
-          bottom: "72px",
+          bottom: "clamp(48px, 10vh, 72px)",
           zIndex: 20,
           textAlign: "center",
-          padding: "0 40px",
+          // Global margin enforcement
+          paddingLeft: "var(--torq-margin)",
+          paddingRight: "var(--torq-margin)",
         }}
       >
         <h1
           style={{
             fontFamily: "var(--font-anton), Anton, sans-serif",
-            fontSize: "clamp(5.5rem, 10vw, 6.75rem)",
+            fontSize: "clamp(3.5rem, 12vw, 6.75rem)",
             fontWeight: 400,
             lineHeight: 0.95,
             letterSpacing: "-0.01em",

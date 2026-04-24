@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
 const FACES = [
   {
@@ -90,22 +90,23 @@ function MobileIntroFrame() {
       flexDirection: "column", 
       justifyContent: "center",
       alignItems: "center",
-      padding: "0 clamp(16px, 4vw, 40px)", // Responsive padding
+      paddingLeft: "var(--torq-margin)",
+      paddingRight: "var(--torq-margin)",
       backgroundColor: "#131111",
       position: "relative"
     }}>
       <div style={{
         display: "flex",
         flexDirection: "column",
-        gap: "clamp(16px, 3vh, 40px)", // Responsive gap
+        gap: "clamp(16px, 3vh, 40px)",
         width: "100%",
-        maxWidth: "clamp(280px, 85vw, 680px)", // Bounded width for tablet
+        maxWidth: "clamp(280px, 85vw, 680px)",
         margin: "0 auto"
       }}>
         <div style={{
           alignSelf: "flex-end",
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(28px, 7vw, 64px)", // Fluid scaling for intro text
+          fontSize: "clamp(28px, 7vw, 64px)",
           lineHeight: "1",
           color: "white",
           textTransform: "uppercase",
@@ -118,7 +119,7 @@ function MobileIntroFrame() {
         <div style={{
           alignSelf: "flex-start",
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(28px, 7vw, 64px)", // Fluid scaling for intro text
+          fontSize: "clamp(28px, 7vw, 64px)",
           lineHeight: "1",
           color: "white",
           textTransform: "uppercase",
@@ -138,22 +139,23 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
   
   return (
     <div style={{
-      width: "clamp(300px, 88vw, 500px)", // Stable width across phone/tablet
+      width: "clamp(300px, 88vw, 500px)",
       height: "100%",
       flexShrink: 0,
       display: "flex",
       flexDirection: "column",
-      padding: "0 clamp(16px, 4vw, 40px)",
+      paddingLeft: "var(--torq-margin)",
+      paddingRight: "var(--torq-margin)",
       justifyContent: isTop ? "flex-start" : "flex-end",
-      paddingTop: isTop ? "clamp(100px, 15vh, 180px)" : "0", // Responsive stagger
-      paddingBottom: isTop ? "0" : "clamp(80px, 12vh, 140px)" // Responsive stagger
+      paddingTop: isTop ? "clamp(100px, 15vh, 180px)" : "0",
+      paddingBottom: isTop ? "0" : "clamp(80px, 12vh, 140px)"
     }}>
       {isTop ? (
         <>
           <div style={{ marginBottom: "clamp(24px, 4vh, 48px)" }}>
             <h3 style={{ 
               fontFamily: "var(--font-anton), Anton, sans-serif",
-              fontSize: "clamp(28px, 5vw, 42px)", // Scaling card name
+              fontSize: "clamp(28px, 5vw, 42px)",
               color: "white",
               textTransform: "uppercase",
               marginBottom: "12px",
@@ -163,7 +165,7 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
             </h3>
             <p style={{ 
               fontFamily: "var(--font-bricolage), sans-serif",
-              fontSize: "clamp(14px, 2vw, 16px)", // Scaling description
+              fontSize: "clamp(14px, 2vw, 16px)",
               color: "rgba(255,255,255,0.8)",
               lineHeight: "1.5",
               maxWidth: "320px"
@@ -217,8 +219,7 @@ function MobileCard({ face, index }: { face: typeof FACES[0], index: number }) {
 }
 
 // -- Desktop View Component -------------------------------------------------
-function DesktopView() {
-  const containerRef = useRef<HTMLDivElement>(null);
+function DesktopView({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollRange, setScrollRange] = useState(0);
 
@@ -233,81 +234,69 @@ function DesktopView() {
     return () => window.removeEventListener("resize", calculateRange);
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
 
   return (
-    <section 
-      ref={containerRef} 
-      data-chrome-theme="light"
-      style={{ height: "600vh", backgroundColor: "#131111", position: "relative" }}
-    >
-      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex" }}>
-        <motion.div ref={scrollRef} style={{ display: "flex", x, height: "100%", alignItems: "stretch" }}>
-          <div style={{ width: "100vw", height: "100%", flexShrink: 0, position: "relative" }}>
-            <div style={{ position: "absolute", top: "42vh", left: "420px", whiteSpace: "nowrap", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "56px", lineHeight: "0.9", letterSpacing: "-0.02em", textTransform: "uppercase", zIndex: 10 }}>
-              <span style={{ color: "white" }}>WE MOVE </span>
-              <span style={{ color: "#EF4826" }}>SIDEWAYS,</span>
-            </div>
-            <div style={{ position: "absolute", top: "52vh", left: "40px", whiteSpace: "nowrap", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "56px", lineHeight: "0.9", letterSpacing: "-0.02em", textTransform: "uppercase", zIndex: 10 }}>
-              <span style={{ color: "white" }}>BUT NEVER </span>
-              <span style={{ color: "#EF4826" }}>WITHOUT CONTROL.</span>
-            </div>
-            <div style={{ position: "absolute", top: "150px", right: "40px", width: "440px", zIndex: 5 }}>
+    <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex" }}>
+      <motion.div ref={scrollRef} style={{ display: "flex", x, height: "100%", alignItems: "stretch" }}>
+        <div style={{ width: "100vw", height: "100%", flexShrink: 0, position: "relative" }}>
+          <div style={{ position: "absolute", top: "42vh", left: "420px", whiteSpace: "nowrap", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "56px", lineHeight: "0.9", letterSpacing: "-0.02em", textTransform: "uppercase", zIndex: 10 }}>
+            <span style={{ color: "white" }}>WE MOVE </span>
+            <span style={{ color: "#EF4826" }}>SIDEWAYS,</span>
+          </div>
+          <div style={{ position: "absolute", top: "52vh", left: "40px", whiteSpace: "nowrap", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "56px", lineHeight: "0.9", letterSpacing: "-0.02em", textTransform: "uppercase", zIndex: 10 }}>
+            <span style={{ color: "white" }}>BUT NEVER </span>
+            <span style={{ color: "#EF4826" }}>WITHOUT CONTROL.</span>
+          </div>
+          <div style={{ position: "absolute", top: "150px", right: "40px", width: "440px", zIndex: 5 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                  <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "42px", color: "white", textTransform: "uppercase", marginBottom: "16px", lineHeight: "1" }}>{FACES[0].name}</h3>
-                  <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "15px", color: "rgba(255,255,255,0.9)", lineHeight: "1.5", maxWidth: "320px" }}>{FACES[0].desc}</p>
-                </div>
-                <div style={{ marginTop: "42px", marginLeft: "42px", width: "calc(100% - 42px)", height: "600px", overflow: "hidden" }}>
-                  <img src={FACES[0].img} alt={FACES[0].name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                </div>
+                <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "42px", color: "white", textTransform: "uppercase", marginBottom: "16px", lineHeight: "1" }}>{FACES[0].name}</h3>
+                <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "15px", color: "rgba(255,255,255,0.9)", lineHeight: "1.5", maxWidth: "320px" }}>{FACES[0].desc}</p>
+              </div>
+              <div style={{ marginTop: "42px", marginLeft: "42px", width: "calc(100% - 42px)", height: "600px", overflow: "hidden" }}>
+                <img src={FACES[0].img} alt={FACES[0].name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
             </div>
           </div>
-          <div style={{ display: "flex", alignItems: "stretch", gap: "12vw", paddingLeft: "8vw", paddingRight: "40px" }}>
-            {FACES.slice(1).map((face) => {
-              const isTop = face.family === "top";
-              return (
-                <div key={face.id} style={{ width: face.width, flexShrink: 0, display: "flex", flexDirection: "column", height: "100%", alignItems: "flex-start" }}>
-                  {isTop ? (
-                    <div style={{ paddingTop: "150px", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                        <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "42px", color: "white", textTransform: "uppercase", marginBottom: "16px", lineHeight: "1" }}>{face.name}</h3>
-                        <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "15px", color: "rgba(255,255,255,0.8)", lineHeight: "1.5", maxWidth: "320px" }}>{face.desc}</p>
-                      </div>
-                      <div style={{ marginTop: "42px", marginLeft: "42px", width: "calc(100% - 42px)", height: face.height, overflow: "hidden" }}>
-                        <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      </div>
+        </div>
+        <div style={{ display: "flex", alignItems: "stretch", gap: "12vw", paddingLeft: "8vw", paddingRight: "40px" }}>
+          {FACES.slice(1).map((face) => {
+            const isTop = face.family === "top";
+            return (
+              <div key={face.id} style={{ width: face.width, flexShrink: 0, display: "flex", flexDirection: "column", height: "100%", alignItems: "flex-start" }}>
+                {isTop ? (
+                  <div style={{ paddingTop: "150px", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                      <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "42px", color: "white", textTransform: "uppercase", marginBottom: "16px", lineHeight: "1" }}>{face.name}</h3>
+                      <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "15px", color: "rgba(255,255,255,0.8)", lineHeight: "1.5", maxWidth: "320px" }}>{face.desc}</p>
                     </div>
-                  ) : (
-                    <div style={{ marginTop: "auto", paddingBottom: "80px", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                      <div style={{ marginLeft: "42px", width: "calc(100% - 42px)", height: face.height, overflow: "hidden", marginBottom: "42px" }}>
-                        <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      </div>
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                        <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "42px", color: "white", textTransform: "uppercase", marginBottom: "16px", lineHeight: "1" }}>{face.name}</h3>
-                        <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "15px", color: "rgba(255,255,255,0.8)", lineHeight: "1.5", maxWidth: "300px" }}>{face.desc}</p>
-                      </div>
+                    <div style={{ marginTop: "42px", marginLeft: "42px", width: "calc(100% - 42px)", height: face.height, overflow: "hidden" }}>
+                      <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </motion.div>
-      </div>
-    </section>
+                  </div>
+                ) : (
+                  <div style={{ marginTop: "auto", paddingBottom: "80px", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                    <div style={{ marginLeft: "42px", width: "calc(100% - 42px)", height: face.height, overflow: "hidden", marginBottom: "42px" }}>
+                      <img src={face.img} alt={face.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                      <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "42px", color: "white", textTransform: "uppercase", marginBottom: "16px", lineHeight: "1" }}>{face.name}</h3>
+                      <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "15px", color: "rgba(255,255,255,0.8)", lineHeight: "1.5", maxWidth: "300px" }}>{face.desc}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </motion.div>
+    </div>
   );
 }
 
 // -- Mobile View Component --------------------------------------------------
-function MobileView() {
-  const containerRef = useRef<HTMLDivElement>(null);
+function MobileView({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollRange, setScrollRange] = useState(0);
 
@@ -322,43 +311,33 @@ function MobileView() {
     return () => window.removeEventListener("resize", calculateRange);
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
 
   return (
-    <section 
-      ref={containerRef} 
-      data-chrome-theme="light"
-      style={{ height: "600vh", backgroundColor: "#131111", position: "relative" }}
-    >
-      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex" }}>
-        <motion.div 
-          ref={scrollRef} 
-          style={{ 
-            display: "flex", 
-            x, 
-            height: "100%", 
-            alignItems: "stretch",
-            gap: "clamp(24px, 5vw, 64px)" // Fluid gap between cards
-          }}
-        >
-          <MobileIntroFrame />
-          {FACES.map((face, index) => (
-            <MobileCard key={face.id} face={face} index={index} />
-          ))}
-          <div style={{ width: "clamp(24px, 5vw, 64px)", flexShrink: 0 }} />
-        </motion.div>
-      </div>
-    </section>
+    <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex" }}>
+      <motion.div 
+        ref={scrollRef} 
+        style={{ 
+          display: "flex", 
+          x, 
+          height: "100%", 
+          alignItems: "stretch",
+          gap: "clamp(24px, 5vw, 64px)" 
+        }}
+      >
+        <MobileIntroFrame />
+        {FACES.map((face, index) => (
+          <MobileCard key={face.id} face={face} index={index} />
+        ))}
+        <div style={{ width: "clamp(24px, 5vw, 64px)", flexShrink: 0 }} />
+      </motion.div>
+    </div>
   );
 }
 
 // -- Main Component ---------------------------------------------------------
 export default function MovementGallery() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -370,7 +349,26 @@ export default function MovementGallery() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  if (!mounted) return null;
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
-  return isMobile ? <MobileView /> : <DesktopView />;
+  return (
+    <section 
+      ref={containerRef} 
+      data-chrome-theme="light"
+      style={{ 
+        height: mounted ? "600vh" : "100vh", 
+        backgroundColor: "#131111", 
+        position: "relative" 
+      }}
+    >
+      {mounted ? (
+        isMobile ? <MobileView scrollYProgress={scrollYProgress} /> : <DesktopView scrollYProgress={scrollYProgress} />
+      ) : (
+        <div style={{ height: "100vh" }} />
+      )}
+    </section>
+  );
 }

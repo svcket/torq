@@ -64,7 +64,17 @@ function MobileView() {
   const activeProducts = PRODUCTS.filter(p => !p.empty);
 
   return (
-    <section data-chrome-theme="dark" style={{ backgroundColor: "#F4F4F4", paddingLeft: "clamp(16px, 4vw, 40px)", paddingRight: "clamp(16px, 4vw, 40px)", paddingTop: "clamp(80px, 12vh, 120px)", paddingBottom: "80px", minHeight: "100vh", display: "flex", flexDirection: "column", position: "relative" }}>
+    <section data-chrome-theme="dark" style={{ 
+      backgroundColor: "#F4F4F4", 
+      paddingLeft: "var(--torq-margin)", 
+      paddingRight: "var(--torq-margin)", 
+      paddingTop: "clamp(80px, 12vh, 120px)", 
+      paddingBottom: "80px", 
+      minHeight: "100vh", 
+      display: "flex", 
+      flexDirection: "column", 
+      position: "relative" 
+    }}>
       <div style={{ marginBottom: "clamp(32px, 6vh, 64px)", maxWidth: "1200px" }}>
         <h2 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "clamp(36px, 6vw, 56px)", color: "#000000", textTransform: "uppercase", lineHeight: "1", marginBottom: "16px", letterSpacing: "-0.01em" }}>MERCHANDISE</h2>
         <p style={{ fontFamily: "var(--font-sans), sans-serif", fontSize: "clamp(15px, 2vw, 18px)", color: "#4A4A48", lineHeight: "1.5", maxWidth: "500px" }}>Curated essentials for the scene. Precision-cut outerwear and heavy-weight essentials built for the long haul.</p>
