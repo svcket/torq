@@ -338,19 +338,24 @@ function MobileView() {
       <div style={{ height: "100vh", display: "flex", flexDirection: "column", padding: "120px 0 0 0", position: "relative", overflow: "hidden" }}>
         <IdentityContent isMobile={true} />
       </div>
-      <div style={{ backgroundColor: "#FFFFFF", padding: "clamp(48px, 10vh, 96px) 0" }}>
+      {/* 
+          REFINED POSITIONING: 
+          Removed the large top padding (clamp(48px, 10vh, 96px)) to pull "UPCOMING EVENTS" 
+          to the correct position marking the end of the Identity section.
+      */}
+      <div style={{ backgroundColor: "#FFFFFF", padding: "0 0 40px 0" }}>
         {/* Title padding refine: 40px fixed margin to first card as requested */}
-        <div style={{ padding: "0 clamp(16px, 4vw, 40px)", marginBottom: "40px", maxWidth: "1200px", margin: "0 auto" }}>
+        <div style={{ padding: "clamp(24px, 5vh, 40px) clamp(16px, 4vw, 40px) 0 clamp(16px, 4vw, 40px)", marginBottom: "40px", maxWidth: "1200px", margin: "0 auto" }}>
           <h2 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "clamp(36px, 6vw, 56px)", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1 }}>UPCOMING EVENTS</h2>
         </div>
         {/* Reduced gap and removed dividers to clean up mobile rhythm */}
         <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(40px, 6vh, 80px)" }}>
           {EVENTS.map((event) => (
             <div key={event.id} style={{ paddingBottom: "clamp(24px, 4vh, 48px)" }}>
-              {/* Refined responsive image height: Increased by 40px mobile / 64px tablet */}
+              {/* Refined responsive image height: Increased by additional 16px for tablet */}
               <div style={{ 
                 width: "100%", 
-                height: "clamp(220px, 32vh, 440px)", // Base height increased to accommodate requested shift
+                height: "clamp(220px, 32vh, 456px)", // Max increased to 456px (prev 440 + 16)
                 marginBottom: "clamp(20px, 3vh, 32px)", 
                 overflow: "hidden" 
               }}>
