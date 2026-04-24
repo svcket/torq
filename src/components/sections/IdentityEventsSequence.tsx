@@ -318,7 +318,7 @@ function DesktopView() {
               <Divider mb={24} />
               <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Highlights</div>{EVENTS[activeIndex].highlights.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}</div>
               <Divider mb={24} />
-              <div style={{ marginBottom: "auto", paddingBottom: 20 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Expected Line-ups</div>{EVENTS[activeIndex].lineups.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}</div>
+              <div style={{ marginBottom: "auto", paddingBottom: 20 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Expected Line-ups</div>{EVENTS.map((event) => event.id === EVENTS[activeIndex].id && event.lineups.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>)))}</div>
               <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>
                 <button style={{ flex: 1, height: 48, border: "2px solid #111", backgroundColor: "transparent", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#111", textTransform: "uppercase", letterSpacing: "0.1em", cursor: "pointer" }}>MORE DETAILS</button>
                 <button style={{ flex: 1, height: 52, border: "none", backgroundColor: "#EF4826", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em", cursor: "pointer" }}>ATTEND EVENT</button>
@@ -339,17 +339,19 @@ function MobileView() {
         <IdentityContent isMobile={true} />
       </div>
       <div style={{ backgroundColor: "#FFFFFF", padding: "clamp(48px, 10vh, 96px) 0" }}>
-        <div style={{ padding: "0 clamp(16px, 4vw, 40px)", marginBottom: "clamp(32px, 5vh, 64px)", maxWidth: "1200px", margin: "0 auto" }}>
+        {/* Title padding refine: 40px fixed margin to first card as requested */}
+        <div style={{ padding: "0 clamp(16px, 4vw, 40px)", marginBottom: "40px", maxWidth: "1200px", margin: "0 auto" }}>
           <h2 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "clamp(36px, 6vw, 56px)", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1 }}>UPCOMING EVENTS</h2>
         </div>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(48px, 8vh, 96px)" }}>
+        {/* Reduced gap and removed dividers to clean up mobile rhythm */}
+        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(40px, 6vh, 80px)" }}>
           {EVENTS.map((event) => (
-            <div key={event.id} style={{ borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "clamp(32px, 6vh, 64px)" }}>
-              {/* Refined responsive image height for mobile/tablet proportional balance */}
+            <div key={event.id} style={{ paddingBottom: "clamp(24px, 4vh, 48px)" }}>
+              {/* Refined responsive image height: Increased by 40px mobile / 64px tablet */}
               <div style={{ 
                 width: "100%", 
-                height: "clamp(180px, 28vh, 360px)", 
-                marginBottom: "clamp(20px, 3vh, 40px)", 
+                height: "clamp(220px, 32vh, 440px)", // Base height increased to accommodate requested shift
+                marginBottom: "clamp(20px, 3vh, 32px)", 
                 overflow: "hidden" 
               }}>
                 <img src={event.mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
