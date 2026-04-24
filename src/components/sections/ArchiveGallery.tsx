@@ -33,7 +33,7 @@ const DOCUMENTARY_IMAGES = [
 // --- Specialized Sub-components ---
 
 const GalleryCaption = React.memo(({ title, date }: { title: string; date: string }) => (
-  <div style={{ textAlign: "center", padding: "0 20px" }}>
+  <div style={{ textAlign: "center", paddingLeft: "var(--torq-margin)", paddingRight: "var(--torq-margin)" }}>
     <h3 style={{ 
       fontFamily: "var(--font-anton), Anton, sans-serif",
       fontSize: "clamp(16px, 2vw, 18px)",
@@ -192,7 +192,8 @@ export default function ArchiveGallery() {
         alignItems: "center",
         gap: "clamp(16px, 2vw, 24px)", 
         marginTop: "16px",
-        padding: "0 20px"
+        paddingLeft: "var(--torq-margin)",
+        paddingRight: "var(--torq-margin)"
       }}>
         <a href="#" style={{ width: isMobile ? "100%" : "auto", textAlign: "center", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "16px", color: "#000000", textTransform: "uppercase", textDecoration: "none", border: "2px solid #000000", padding: "16px 40px", letterSpacing: "0.05em", fontWeight: 400 }}>VIEW THE ARCHIVE</a>
         <a href="#" style={{ width: isMobile ? "100%" : "auto", textAlign: "center", fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "16px", color: "#FFFFFF", backgroundColor: "#EF4826", textTransform: "uppercase", textDecoration: "none", padding: "16px 40px", letterSpacing: "0.05em", fontWeight: 400 }}>EXPLORE EVENTS</a>

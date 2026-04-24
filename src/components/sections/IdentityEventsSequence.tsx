@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence, MotionValue } from "framer-motion";
 
 // -- Types & Data -----------------------------------------------------------
 interface EventData {
@@ -34,7 +34,7 @@ const EVENTS: EventData[] = [
     description: "A high-intensity motocross showcase where speed meets lift, and every jump cuts through mud, noise, and crowd pressure.",
     date: "SAT. 15 MAY, 2026 | 14:30",
     venue: "TOR'Q ARENA (MUTANDA), GWARIMPA, ABUJA",
-    highlights: ["MOTOCROSS SHOW RUNS", "ELEVUMP SEQUENCES", "TRACKSIDE VIP ACCESS"],
+    highlights: ["MOTOCROSS SHOW RUNS", "ELEVATED JUMP SEQUENCES", "TRACKSIDE VIP ACCESS"],
     lineups: ["JAY BASH", "CAPTAIN AWAL", "AUTO CRAFT"],
     mediaUrl: "/torqassets/events/event image 2.jpg",
     mediaType: "image",
@@ -106,14 +106,15 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
         flexDirection: "column", 
         gap: "clamp(48px, 8vh, 80px)", 
         width: "100%", 
-        padding: "0 clamp(16px, 4vw, 40px)",
+        paddingLeft: "var(--torq-margin)",
+        paddingRight: "var(--torq-margin)",
         maxWidth: "800px",
         margin: "0 auto"
       }}>
         <div style={{
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(20px, 4vw, 32px)",
-          lineHeight: 1.1,
+          fontSize: "clamp(18px, 4vw, 30px)",
+          lineHeight: 1.4,
           color: "#111",
           textTransform: "uppercase",
           letterSpacing: "0.01em",
@@ -127,8 +128,8 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
         <div style={{
           alignSelf: "flex-end",
           fontFamily: "var(--font-anton), Anton, sans-serif",
-          fontSize: "clamp(20px, 4vw, 32px)",
-          lineHeight: 1.1,
+          fontSize: "clamp(18px, 4vw, 30px)",
+          lineHeight: 1.4,
           color: "#111",
           textTransform: "uppercase",
           letterSpacing: "0.01em",
@@ -143,7 +144,7 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
         <div style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "20px"
+          marginTop: "116px"
         }}>
           <img src="/images/torq_24_logo.png" alt="Torq 24 Logo" style={{ width: "clamp(180px, 30vw, 320px)", height: "auto" }} />
         </div>
@@ -197,11 +198,8 @@ function IdentityContent({ isMobile }: { isMobile: boolean }) {
 }
 
 // -- Desktop View Component -------------------------------------------------
-function DesktopView() {
-  const sectionRef = useRef<HTMLElement>(null);
+function DesktopView({ scrollYProgress, containerRef }: { scrollYProgress: MotionValue<number>, containerRef: React.RefObject<HTMLElement | null> }) {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest < 0.52) setActiveIndex(0);
@@ -211,15 +209,20 @@ function DesktopView() {
     else setActiveIndex(4);
 
     if (latest < 0.15) {
-      sectionRef.current?.setAttribute("data-chrome-theme", "dark");
-      sectionRef.current?.setAttribute("data-chrome-logo", "visible");
+      // Intro state (Pink background)
+      containerRef.current?.setAttribute("data-chrome-theme", "dark");
+      containerRef.current?.setAttribute("data-chrome-cart-theme", "dark");
+      containerRef.current?.setAttribute("data-chrome-logo", "visible");
     } else if (latest < 0.40) {
-      sectionRef.current?.setAttribute("data-chrome-theme", "dark");
-      sectionRef.current?.setAttribute("data-chrome-logo", "hidden");
+      // Split state (Black background exposed)
+      containerRef.current?.setAttribute("data-chrome-theme", "light");
+      containerRef.current?.setAttribute("data-chrome-cart-theme", "light");
+      containerRef.current?.setAttribute("data-chrome-logo", "hidden");
     } else {
-      sectionRef.current?.setAttribute("data-chrome-theme", "light");
-      sectionRef.current?.setAttribute("data-chrome-cart-theme", "dark");
-      sectionRef.current?.setAttribute("data-chrome-logo", "visible");
+      // Final state (Media + White Panel)
+      containerRef.current?.setAttribute("data-chrome-theme", "light");
+      containerRef.current?.setAttribute("data-chrome-cart-theme", "dark");
+      containerRef.current?.setAttribute("data-chrome-logo", "visible");
     }
   });
 
@@ -278,110 +281,80 @@ function DesktopView() {
   const indicatorOpacity = useTransform(scrollYProgress, [collapseEnd, collapseEnd + 0.05], [0, 1]);
 
   return (
-    <section ref={sectionRef} style={{ height: "800vh", position: "relative" }} aria-label="TORQ Identity & Upcoming Events Sequence">
-      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "#000" }}>
-        <motion.div style={{ position: "absolute", top: 0, left: 0, width: "50vw", height: "100%", overflow: "hidden", zIndex: 50, x: useTransform(doorOffset, v => `-${v}`) }}>
-          <div style={{ position: "absolute", top: 0, left: 0, width: "100vw", height: "100%" }}>
-            <IdentityContent isMobile={false} />
-          </div>
-        </motion.div>
-        <motion.div style={{ position: "absolute", top: 0, right: 0, width: "50vw", height: "100%", overflow: "hidden", zIndex: 50, x: doorOffset }}>
-          <div style={{ position: "absolute", top: 0, right: 0, width: "100vw", height: "100%" }}>
-            <IdentityContent isMobile={false} />
-          </div>
-        </motion.div>
-        <motion.div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: mediaWidth, overflow: "hidden", zIndex: 10 }}>
-          <AnimatePresence>
-            <motion.div key={EVENTS[activeIndex].id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: "easeOut" }} style={{ position: "absolute", inset: 0 }}>
-              <img src={EVENTS[activeIndex].mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
-            </motion.div>
-          </AnimatePresence>
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%)", pointerEvents: "none" }} />
-          <motion.div style={{ position: "absolute", bottom: "7%", right: "40px", display: "flex", flexDirection: "column", gap: "10px", alignItems: "center", zIndex: 25, opacity: indicatorOpacity }}>
-            {EVENTS.map((_, idx) => (<div key={idx} style={{ width: "2px", height: activeIndex === idx ? "26px" : "18px", backgroundColor: activeIndex === idx ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.25)", borderRadius: "1px", transition: "all 0.4s ease" }} />))}
+    <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "#000" }}>
+      <motion.div style={{ position: "absolute", top: 0, left: 0, width: "50vw", height: "100%", overflow: "hidden", zIndex: 50, x: useTransform(doorOffset, v => `-${v}`) }}>
+        <div style={{ position: "absolute", top: 0, left: 0, width: "100vw", height: "100%" }}>
+          <IdentityContent isMobile={false} />
+        </div>
+      </motion.div>
+      <motion.div style={{ position: "absolute", top: 0, right: 0, width: "50vw", height: "100%", overflow: "hidden", zIndex: 50, x: doorOffset }}>
+        <div style={{ position: "absolute", top: 0, right: 0, width: "100vw", height: "100%" }}>
+          <IdentityContent isMobile={false} />
+        </div>
+      </motion.div>
+      <motion.div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: mediaWidth, overflow: "hidden", zIndex: 10 }}>
+        <AnimatePresence>
+          <motion.div key={EVENTS[activeIndex].id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: "easeOut" }} style={{ position: "absolute", inset: 0 }}>
+            <img src={EVENTS[activeIndex].mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
           </motion.div>
+        </AnimatePresence>
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%)", pointerEvents: "none" }} />
+        <motion.div style={{ position: "absolute", bottom: "7%", right: "40px", display: "flex", flexDirection: "column", gap: "10px", alignItems: "center", zIndex: 25, opacity: indicatorOpacity }}>
+          {EVENTS.map((_, idx) => (<div key={idx} style={{ width: "2px", height: activeIndex === idx ? "26px" : "18px", backgroundColor: activeIndex === idx ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.25)", borderRadius: "1px", transition: "all 0.4s ease" }} />))}
         </motion.div>
-        <motion.div style={{ position: "absolute", top: labelTop, left: labelLeft, x: labelTransX, zIndex: 30, pointerEvents: "none" }}>
-          <motion.span style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: labelFontSize, color: labelColor, textTransform: "uppercase", letterSpacing: labelLetterSpacing, lineHeight: 1, display: "block", whiteSpace: "nowrap" }}>UPCOMING EVENTS</motion.span>
+      </motion.div>
+      <motion.div style={{ position: "absolute", top: labelTop, left: labelLeft, x: labelTransX, zIndex: 30, pointerEvents: "none" }}>
+        <motion.span style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: labelFontSize, color: labelColor, textTransform: "uppercase", letterSpacing: labelLetterSpacing, lineHeight: 1, display: "block", whiteSpace: "nowrap" }}>UPCOMING EVENTS</motion.span>
+      </motion.div>
+      <motion.div style={{ position: "absolute", top: 0, right: 0, width: "28vw", height: "100%", backgroundColor: "#FFFFFF", zIndex: 20, x: rightPanelX, overflowY: "auto", overflowX: "hidden", boxSizing: "border-box", padding: "88px 40px 40px 40px", display: "flex", flexDirection: "column" }}>
+        <motion.div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "40px", minHeight: "18px" }}>
+          <a href="#" style={{ fontFamily: "var(--font-anton)", fontSize: "16px", color: "#EF4826", textTransform: "uppercase", letterSpacing: "0.05em", textDecoration: "underline", textUnderlineOffset: "4px", whiteSpace: "nowrap", lineHeight: 1 }}>SEE ALL EVENTS</a>
         </motion.div>
-        <motion.div style={{ position: "absolute", top: 0, right: 0, width: "28vw", height: "100%", backgroundColor: "#FFFFFF", zIndex: 20, x: rightPanelX, overflowY: "auto", overflowX: "hidden", boxSizing: "border-box", padding: "88px 40px 40px 40px", display: "flex", flexDirection: "column" }}>
-          <motion.div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "40px", minHeight: "18px" }}>
-            <a href="#" style={{ fontFamily: "var(--font-anton)", fontSize: "16px", color: "#EF4826", textTransform: "uppercase", letterSpacing: "0.05em", textDecoration: "underline", textUnderlineOffset: "4px", whiteSpace: "nowrap", lineHeight: 1 }}>SEE ALL EVENTS</a>
+        <AnimatePresence mode="wait">
+          <motion.div key={EVENTS[activeIndex].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+            <h2 style={{ fontFamily: "var(--font-anton)", fontSize: "32px", color: "#111", textTransform: "uppercase", lineHeight: 1.05, letterSpacing: "0.01em", margin: "0 0 20px 0" }}>{EVENTS[activeIndex].title}</h2>
+            <p style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#555", lineHeight: 1.6, margin: "0 0 32px 0" }}>{EVENTS[activeIndex].description}</p>
+            <Divider mb={24} />
+            <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Date and Time</div><div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em" }}>{EVENTS[activeIndex].date}</div></div>
+            <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Venue</div><div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1.35 }}>{EVENTS[activeIndex].venue}</div></div>
+            <Divider mb={24} />
+            <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Highlights</div>{EVENTS[activeIndex].highlights.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}</div>
+            <Divider mb={24} />
+            <div style={{ marginBottom: "auto", paddingBottom: 20 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Expected Line-ups</div>{EVENTS.map((event) => event.id === EVENTS[activeIndex].id && event.lineups.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>)))}</div>
+            <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>
+              <button style={{ flex: 1, height: 48, border: "2px solid #111", backgroundColor: "transparent", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#111", textTransform: "uppercase", letterSpacing: "0.1em", cursor: "pointer" }}>MORE DETAILS</button>
+              <button style={{ flex: 1, height: 52, border: "none", backgroundColor: "#EF4826", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em", cursor: "pointer" }}>ATTEND EVENT</button>
+            </div>
           </motion.div>
-          <AnimatePresence mode="wait">
-            <motion.div key={EVENTS[activeIndex].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-              <h2 style={{ fontFamily: "var(--font-anton)", fontSize: "32px", color: "#111", textTransform: "uppercase", lineHeight: 1.05, letterSpacing: "0.01em", margin: "0 0 20px 0" }}>{EVENTS[activeIndex].title}</h2>
-              <p style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#555", lineHeight: 1.6, margin: "0 0 32px 0" }}>{EVENTS[activeIndex].description}</p>
-              <Divider mb={24} />
-              <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Date and Time</div><div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em" }}>{EVENTS[activeIndex].date}</div></div>
-              <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 5 }}>Venue</div><div style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1.35 }}>{EVENTS[activeIndex].venue}</div></div>
-              <Divider mb={24} />
-              <div style={{ marginBottom: 24 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Highlights</div>{EVENTS[activeIndex].highlights.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>))}</div>
-              <Divider mb={24} />
-              <div style={{ marginBottom: "auto", paddingBottom: 20 }}><div style={{ fontFamily: "var(--font-bricolage)", fontSize: "16px", color: "#9C8981", marginBottom: 10 }}>Expected Line-ups</div>{EVENTS.map((event) => event.id === EVENTS[activeIndex].id && event.lineups.map((item) => (<div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}><Dot /><span style={{ fontFamily: "var(--font-anton)", fontSize: "17px", color: "#111", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.3 }}>{item}</span></div>)))}</div>
-              <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>
-                <button style={{ flex: 1, height: 48, border: "2px solid #111", backgroundColor: "transparent", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#111", textTransform: "uppercase", letterSpacing: "0.1em", cursor: "pointer" }}>MORE DETAILS</button>
-                <button style={{ flex: 1, height: 52, border: "none", backgroundColor: "#EF4826", fontFamily: "var(--font-anton)", fontSize: "16px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em", cursor: "pointer" }}>ATTEND EVENT</button>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-      </div>
-    </section>
+        </AnimatePresence>
+      </motion.div>
+    </div>
   );
 }
 
 // -- Mobile View Component --------------------------------------------------
 function MobileView() {
   return (
-    <section data-chrome-theme="dark" aria-label="TORQ Identity & Upcoming Events Sequence" style={{ backgroundColor: "#FFE7E3", position: "relative" }}>
+    <div style={{ backgroundColor: "#FFE7E3", position: "relative" }}>
       <div style={{ height: "100vh", display: "flex", flexDirection: "column", padding: "120px 0 0 0", position: "relative", overflow: "hidden" }}>
         <IdentityContent isMobile={true} />
       </div>
-      {/* 
-          REFINED POSITIONING & SPACING RULES (MOBILE/TABLET ONLY):
-          Rule 1: 40px space between pink illustrated strip (vehicles image) and the heading.
-          The vehicles are pinned to bottom: 20px of the 100vh identity block.
-          Setting this section's top padding to 20px results in a total visual gap of exactly 40px.
-      */}
-      <div style={{ backgroundColor: "#FFFFFF", padding: "20px 0 40px 0" }}>
-        {/* 
-            Rule 2: Exactly 40px space between the heading and the events content area (first card image).
-        */}
-        <div style={{ 
-          padding: "0 clamp(16px, 4vw, 40px)", 
-          marginBottom: "40px", 
-          maxWidth: "1200px", 
-          margin: "0 auto" 
-        }}>
-          <h2 style={{ 
-            fontFamily: "var(--font-anton), Anton, sans-serif", 
-            fontSize: "clamp(36px, 6vw, 56px)", 
-            color: "#111", 
-            textTransform: "uppercase", 
-            letterSpacing: "0.03em", 
-            lineHeight: 1 
-          }}>
-            UPCOMING EVENTS
-          </h2>
+      <div style={{ backgroundColor: "#FFFFFF", padding: "clamp(48px, 10vh, 96px) 0" }}>
+        <div style={{ paddingLeft: "var(--torq-margin)", paddingRight: "var(--torq-margin)", maxWidth: "1200px", margin: "0 auto", marginBottom: "40px" }}>
+          <h2 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "clamp(36px, 6vw, 56px)", color: "#111", textTransform: "uppercase", letterSpacing: "0.03em", lineHeight: 1, margin: 0 }}>UPCOMING EVENTS</h2>
         </div>
-        
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(64px, 10vh, 96px)" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "40px" }}>
           {EVENTS.map((event) => (
-            <div key={event.id} style={{ paddingBottom: "clamp(24px, 4vh, 48px)" }}>
-              {/* 
-                  Rule 3: Exactly 40px spacing within the event content structure 
-                  where card/content blocks separate (Image -> Info area).
-              */}
+            <div key={event.id}>
               <div style={{ 
                 width: "100%", 
-                height: "clamp(220px, 32vh, 456px)", 
-                marginBottom: "40px", // ENFORCED: Exactly 40px internal separation
+                height: "clamp(220px, 32vh, 440px)", 
+                marginBottom: "clamp(20px, 3vh, 32px)", 
                 overflow: "hidden" 
               }}>
                 <img src={event.mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
               </div>
-              <div style={{ padding: "0 clamp(16px, 4vw, 40px)" }}>
+              <div style={{ paddingLeft: "var(--torq-margin)", paddingRight: "var(--torq-margin)" }}>
                 <h3 style={{ fontFamily: "var(--font-anton), Anton, sans-serif", fontSize: "clamp(24px, 4vw, 36px)", color: "#111", textTransform: "uppercase", marginBottom: "16px", lineHeight: 1.1 }}>{event.title}</h3>
                 <p style={{ fontFamily: "var(--font-bricolage), sans-serif", fontSize: "clamp(14px, 2vw, 16px)", color: "#555", lineHeight: 1.6, marginBottom: "24px" }}>{event.description}</p>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(16px, 3vw, 32px)", marginBottom: "clamp(24px, 4vh, 48px)" }}>
@@ -396,16 +369,17 @@ function MobileView() {
             </div>
           ))}
         </div>
-        <div style={{ padding: "48px clamp(16px, 4vw, 40px) 0", textAlign: "center" }}>
+        <div style={{ padding: "48px 0 0", textAlign: "center", paddingLeft: "var(--torq-margin)", paddingRight: "var(--torq-margin)" }}>
            <a href="#" style={{ fontFamily: "var(--font-anton)", color: "#EF4826", textDecoration: "underline", fontSize: "18px" }}>SEE ALL EVENTS</a>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
 // -- Main Component ---------------------------------------------------------
 export default function IdentityEventsSequence() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -417,9 +391,28 @@ export default function IdentityEventsSequence() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  if (!mounted) {
-    return (<section style={{ height: "100vh", backgroundColor: "#FFE7E3", display: "flex", alignItems: "center", justifyContent: "center" }}><img src="/images/torq_24_logo.png" alt="Torq Logo" style={{ height: "13vh", opacity: 0.1 }} /></section>);
-  }
+  const { scrollYProgress } = useScroll({ 
+    target: sectionRef, 
+    offset: ["start start", "end end"] 
+  });
 
-  return isMobile ? <MobileView /> : <DesktopView />;
+  return (
+    <section 
+      ref={sectionRef} 
+      data-chrome-theme={isMobile ? "dark" : undefined}
+      style={{ 
+        height: mounted ? (isMobile ? "auto" : "800vh") : "100vh", 
+        position: "relative",
+        backgroundColor: "#FFE7E3"
+      }}
+    >
+      {!mounted ? (
+        <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <img src="/images/torq_24_logo.png" alt="Torq Logo" style={{ height: "13vh", opacity: 0.1 }} />
+        </div>
+      ) : (
+        isMobile ? <MobileView /> : <DesktopView scrollYProgress={scrollYProgress} containerRef={sectionRef} />
+      )}
+    </section>
+  );
 }

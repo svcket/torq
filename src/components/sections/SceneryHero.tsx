@@ -46,7 +46,9 @@ export default function SceneryHero() {
         display: "flex", 
         justifyContent: "center",
         zIndex: 10,
-        padding: isMobile ? "0 clamp(16px, 4vw, 40px)" : "0 40px",
+        // Global margin enforcement
+        paddingLeft: "var(--torq-margin)",
+        paddingRight: "var(--torq-margin)",
         boxSizing: "border-box"
       }}>
         <h2 style={{ 
