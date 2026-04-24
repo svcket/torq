@@ -345,7 +345,13 @@ function MobileView() {
         <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(48px, 8vh, 96px)" }}>
           {EVENTS.map((event) => (
             <div key={event.id} style={{ borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "clamp(32px, 6vh, 64px)" }}>
-              <div style={{ width: "100%", height: "clamp(240px, 35vh, 440px)", marginBottom: "clamp(20px, 3vh, 40px)", overflow: "hidden" }}>
+              {/* Refined responsive image height for mobile/tablet proportional balance */}
+              <div style={{ 
+                width: "100%", 
+                height: "clamp(180px, 28vh, 360px)", 
+                marginBottom: "clamp(20px, 3vh, 40px)", 
+                overflow: "hidden" 
+              }}>
                 <img src={event.mediaUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
               </div>
               <div style={{ padding: "0 clamp(16px, 4vw, 40px)" }}>
